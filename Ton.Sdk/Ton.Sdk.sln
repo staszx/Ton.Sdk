@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ton.Sdk", "Ton.Sdk.csproj", "{4802164E-DCC5-4842-AFE6-0A44799F582C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Ton.Sdk", "..\Tests.Ton.Sdk\Tests.Ton.Sdk.csproj", "{FD321ECC-7687-463A-9199-C73E5C69A386}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4802164E-DCC5-4842-AFE6-0A44799F582C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4802164E-DCC5-4842-AFE6-0A44799F582C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4802164E-DCC5-4842-AFE6-0A44799F582C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4802164E-DCC5-4842-AFE6-0A44799F582C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD321ECC-7687-463A-9199-C73E5C69A386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD321ECC-7687-463A-9199-C73E5C69A386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD321ECC-7687-463A-9199-C73E5C69A386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD321ECC-7687-463A-9199-C73E5C69A386}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {92DF98D6-4EFA-4C9D-A599-10C14436023C}
+	EndGlobalSection
+EndGlobal
