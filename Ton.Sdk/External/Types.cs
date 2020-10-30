@@ -44,32 +44,6 @@
     }
 
     /// <summary>
-    /// The response types
-    /// </summary>
-    internal enum tc_response_types_t
-    {
-        /// <summary>
-        /// The tc response success
-        /// </summary>
-        tc_response_success = 0,
-
-        /// <summary>
-        /// The tc response error
-        /// </summary>
-        tc_response_error = 1,
-
-        /// <summary>
-        /// The tc response nop
-        /// </summary>
-        tc_response_nop = 2,
-
-        /// <summary>
-        /// The tc response custom
-        /// </summary>
-        tc_response_custom = 100,
-    };
-
-    /// <summary>
     /// The respone handler
     /// </summary>
     /// <param name="request_id">The request identifier.</param>
@@ -77,9 +51,4 @@
     /// <param name="response_type">Type of the response.</param>
     /// <param name="finished">if set to <c>true</c> [finished].</param>
     internal delegate void tc_response_handler_t(uint request_id, tc_string_data_t params_json, uint response_type, bool finished);
-
-
-
-    //const requests = new Map<number, Request>();
-    //let nextRequestId = 1;
 }
