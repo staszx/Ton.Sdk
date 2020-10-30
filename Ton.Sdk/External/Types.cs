@@ -78,12 +78,7 @@
     /// <param name="finished">if set to <c>true</c> [finished].</param>
     internal delegate void tc_response_handler_t(uint request_id, tc_string_data_t params_json, uint response_type, bool finished);
 
-    //internal  class Request 
-    //{
-    //resolve: (result: any) => void,
-    //reject: (error: Error) => void,
-    //responseHandler?: (params: any) => void,
-    //}
+
 
     //const requests = new Map<number, Request>();
     //let nextRequestId = 1;

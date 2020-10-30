@@ -5,7 +5,9 @@
 namespace Ton.Sdk.External
 {
     using System;
+    using System.Collections.Generic;
     using System.Runtime.InteropServices;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// The external library import
@@ -20,6 +22,8 @@ namespace Ton.Sdk.External
         private const string libraryPath = @"D:\Work\Projects\TON.SDK\Ton.Sdk\Ton.Sdk\Library\tonclient_1_win32_dll.dll";
 
         #endregion
+
+        private static List<Request> requests = new List<Request>();
 
         #region Methods
 
@@ -38,39 +42,7 @@ namespace Ton.Sdk.External
         [DllImport(libraryPath)]
         internal static extern void tc_request(uint context, tc_string_data_t function_name, tc_string_data_t function_params_json, uint request_id, tc_response_handler_t response_handler);
 
-        public static void libraryResponseHandler(uint requestId, tc_string_data_t paramJson, uint responseType, bool finished)
-        {
-            //const request = requests.get(requestId);
-            //if (!request)
-            //{
-            //    return;
-            //}
-            //if (finished)
-            //{
-            //    requests.delete(requestId);
-            //}
-            //var param = paramJson != "" ? JSON.parse(paramsJson) : undefined;
-            //switch (responseType)
-            //{
-            //    case 0: // RESULT
-            //        request.resolve(param);
-            //        break;
-            //    case 1: // ERROR
-            //        request.reject(params);
-            //        break;
-            //    default: // DATA
-            //        if (responseType >= 100 && request.responseHandler)
-            //        {
-            //            request.responseHandler(param);
-            //        }
-            //        break;
-            //}
-        }
-
-        internal static void RequestLibrary(uint context, tc_string_data_t functionName, tc_string_data_t functionParams, tc_response_handler_t responseHandler)
-        {
-            tc_request(context, functionName, functionParams, 0, libraryResponseHandler);
-        }
+       
 
         internal static void getVersion(uint context)
         {
