@@ -2,7 +2,9 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.SqlTypes;
     using System.Linq;
+    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
     using External;
     using Newtonsoft.Json.Linq;
@@ -10,7 +12,7 @@
     /// <summary>
     ///     The request library
     /// </summary>
-    internal class RequestLib
+    internal sealed class RequestLib : IDisposable
     {
         /// <summary>
         ///     The timeout
@@ -143,7 +145,9 @@
             var cfg = new tc_string_data_t {Value = config};
             var jsonPtr = Lib.tc_create_context(cfg);
             var json = Lib.tc_read_string(jsonPtr);
-            return JObject.Parse(json.Value)["result"].Value<uint>();
+            var value = JObject.Parse(json.Value)["result"].Value<uint>();
+            //Lib.tc_destroy_string(jsonPtr);
+            return value;
         }
 
         /// <summary>
@@ -190,6 +194,14 @@
                         throw new ArgumentOutOfRangeException();
                 }
             });
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            Lib.tc_destroy_context(this.context);
         }
     }
 }

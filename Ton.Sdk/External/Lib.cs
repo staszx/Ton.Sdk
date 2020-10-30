@@ -51,7 +51,7 @@ namespace Ton.Sdk.External
         /// </summary>
         /// <param name="context">The context.</param>
         [DllImport(libraryPath)]
-        internal static extern void tc_destroy_context(IntPtr context);
+        internal static extern void tc_destroy_context(uint context);
 
         /// <summary>
         /// Tcs the request.

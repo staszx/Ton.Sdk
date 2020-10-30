@@ -32,7 +32,7 @@ namespace Ton.Sdk.Tests
         {
             string text = "{\"{}\": 2 }";
             TonClient client = new TonClient(text);
-            Console.WriteLine(client.GetVersion().Result.GetValue("version"));
+            Console.WriteLine(client.GetVersion().Result);
 
         }
 
@@ -41,8 +41,18 @@ namespace Ton.Sdk.Tests
         {
             string text = "{\"{}\": 2 }";
             TonClient client = new TonClient(text);
-            Console.WriteLine(client.GetApiReference().Result);
+            Console.WriteLine(client.GetApiReference().Result.GetValue("api"));
 
+        }
+
+        [Test]
+        public void GetBuildInfoTest()
+        {
+            string text = "{\"{}\": 2 }";
+            using (TonClient client = new TonClient(text))
+            {
+                Console.WriteLine(client.BuildInfo().Result);
+            }
         }
 
         //[Test]

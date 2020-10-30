@@ -1,5 +1,6 @@
 ﻿namespace Ton.Sdk
 {
+    using System;
     using System.Threading.Tasks;
     using Newtonsoft.Json.Linq;
     using Request;
@@ -7,7 +8,7 @@
     /// <summary>
     ///     The client
     /// </summary>
-    public class TonClient
+    public sealed class TonClient : IDisposable
     {
         /// <summary>
         ///     The request library
@@ -29,16 +30,34 @@
         /// <returns></returns>
         public async Task<JObject> GetApiReference()
         {
-            return await this.requestLib.RequestLibrary("client.get_api_reference", "");
+           return await this.requestLib.RequestLibrary("client.get_api_reference", "");
         }
 
         /// <summary>
         ///     Gets the version.
         /// </summary>
         /// <returns></returns>
-        public async Task<JObject> GetVersion()
+        public async Task<string> GetVersion()
         {
-            return await this.requestLib.RequestLibrary("client.version", "");
+            var result  = await this.requestLib.RequestLibrary("client.version", "");
+            return result.GetValue("version").Value<string>();
+        }
+
+        /// <summary>
+        /// Builds the information.
+        /// </summary>
+        /// <returns></returns>
+        public async Task<JObject> BuildInfo()
+        {
+            return await this.requestLib.RequestLibrary("client.build_info", "");
+        }
+
+        /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose()
+        {
+            this.requestLib?.Dispose();
         }
     }
 }
