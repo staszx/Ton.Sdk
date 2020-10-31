@@ -1,17 +1,14 @@
-using NUnit.Framework;
-
 namespace Ton.Sdk.Tests
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text.Json;
-    using System.Threading.Tasks;
+    using Client;
     using External;
-    using Newtonsoft.Json.Linq;
-    using Request;
+    using NUnit.Framework;
 
-    public class Tests
+    public class ClientTests
     {
+        #region Methods
+
         [SetUp]
         public void Setup()
         {
@@ -30,30 +27,27 @@ namespace Ton.Sdk.Tests
         [Test]
         public void GetVersionTest()
         {
-            string text = "{\"{}\": 2 }";
-            TonClient client = new TonClient(text);
-            Console.WriteLine(client.GetVersion().Result);
-
+            TonClient client = new TonClient(new ClientConfig());
+            Console.WriteLine(client.Client.GetVersion().Result.Version);
         }
 
         [Test]
         public void GetApiReferenceTest()
         {
-            string text = "{\"{}\": 2 }";
-            TonClient client = new TonClient(text);
-            Console.WriteLine(client.GetApiReference().Result.GetValue("api"));
-
+            TonClient client = new TonClient(new ClientConfig());
+            Console.WriteLine(client.Client.GetApiReference().Result.Api);
         }
 
         [Test]
         public void GetBuildInfoTest()
         {
-            string text = "{\"{}\": 2 }";
-            using (TonClient client = new TonClient(text))
+            using (TonClient client = new TonClient(new ClientConfig()))
             {
-                Console.WriteLine(client.BuildInfo().Result);
+                Console.WriteLine(client.Client.BuildInfo().Result.BuildInfo);
             }
         }
+
+        #endregion
 
         //[Test]
         //public void MultithreadingGetVersionTest()

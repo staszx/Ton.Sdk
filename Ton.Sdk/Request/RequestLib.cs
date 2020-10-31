@@ -2,22 +2,30 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Data.SqlTypes;
     using System.Linq;
-    using System.Runtime.CompilerServices;
     using System.Threading.Tasks;
+    using Client;
+    using Exceptions;
     using External;
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+    using Utils;
 
     /// <summary>
     ///     The request library
     /// </summary>
     internal sealed class RequestLib : IDisposable
     {
+        #region Constants
+
         /// <summary>
         ///     The timeout
         /// </summary>
-        private const int Timeout = 5000;
+        private const uint Timeout = 5000;
+
+        #endregion
+
+        #region Fields
 
         /// <summary>
         ///     The context
@@ -34,14 +42,26 @@
         /// </summary>
         private readonly object syncResponses = new object();
 
+        private uint requestTimeOut = Timeout;
+
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="RequestLib" /> class.
         /// </summary>
         /// <param name="config">The configuration.</param>
-        public RequestLib(string config)
+        public RequestLib(ClientConfig config)
         {
-            this.context = GetContext(config);
+            this.requestTimeOut = config.Network?.WaitForTimeout ?? Timeout;
+            var sConfig = SeralizeObject(config);
+            this.context = GetContext(sConfig);
         }
+
+        #endregion
+
+        #region Methods
 
         /// <summary>
         ///     Libraries the response handler.
@@ -52,32 +72,95 @@
         /// <param name="finished">if set to <c>true</c> [finished].</param>
         public void LibraryResponseHandler(uint requestId, tc_string_data_t paramJson, uint responseType, bool finished)
         {
-            var response = new Response(requestId);
-            response.ResponseType = (ResponseTypes) responseType;
+            Response response = this.GetRequest(requestId);
+            response.ResponseType = (ResponseTypes)responseType;
             response.ReturnValue = paramJson.Value;
             this.AddResponse(response);
+            if (finished)
+            {
+                this.RemoveResponse(response);
+            }
+        }
 
-            //if (finished)
-            //{
+        /// <summary>
+        ///     Gets the context.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        /// <returns></returns>
+        public static uint GetContext(string config)
+        {
+            tc_string_data_t cfg = new tc_string_data_t { Value = config };
+            IntPtr jsonPtr = Lib.tc_create_context(cfg);
+            tc_string_data_t json = Lib.tc_read_string(jsonPtr);
+            uint value = JObject.Parse(json.Value)["result"].Value<uint>();
+            //Lib.tc_destroy_string(jsonPtr);
+            return value;
+        }
 
-            //}
+        /// <summary>
+        /// Requests the library.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="functionName">Name of the function.</param>
+        /// <param name="functionParams">The function parameters.</param>
+        /// <param name="responseHandler">The response handler.</param>
+        /// <returns></returns>
+        internal async Task<T> Request<T>(string functionName, object functionParams = null, ResponseHandler responseHandler = null)
+        {
+            return await Task<T>.Factory.StartNew(() =>
+            {
+                uint requestId = this.NextIndex();
+                var param = functionParams == null ? "" : SeralizeObject(functionParams);
+                tc_string_data_t fName = new tc_string_data_t { Value = functionName };
+                tc_string_data_t fParams = new tc_string_data_t { Value = param };
+                Response request = new Response(requestId, responseHandler);
+                this.AddResponse(request);
 
-            //var param = paramJson.Value != "" ? JSON.parse(paramsJson) : undefined;
-            //switch (responseType)
-            //{
-            //    case 0: // RESULT
-            //        request.resolve(param);
-            //        break;
-            //    case 1: // ERROR
-            //        request.reject(params);
-            //        break;
-            //    default: // DATA
-            //        if (responseType >= 100 && request.responseHandler)
-            //        {
-            //            request.responseHandler(param);
-            //        }
-            //        break;
-            //}
+                Lib.tc_request(this.context, fName, fParams, requestId, this.LibraryResponseHandler);
+
+                int time = DateTime.Now.Millisecond;
+                Response response = this.GetResponse(requestId);
+                while (response == null && DateTime.Now.Millisecond - time < this.requestTimeOut)
+                {
+                    response = this.GetResponse(requestId);
+                }
+
+                if (response == null)
+                {
+                    throw new TimeoutException(string.Format("Time out of request, function name = {0}", functionName));
+                }
+
+                switch (response.ResponseType)
+                {
+                    case ResponseTypes.Success:
+                        return JsonConvert.DeserializeObject<T>(response.ReturnValue);
+                    case ResponseTypes.Error:
+                        var error = JsonConvert.DeserializeObject<ClientError>(response.ReturnValue);
+                        throw new TonClientInternalException(string.Format("Inner exception:\nCode:{0}, Message:{1}", error.Code, error.Message));
+                    default:
+                        if ((int) response.ResponseType >= 100 && response.ResponseHandler != null)
+                        {
+                            return JsonConvert.DeserializeObject<T> (request.ResponseHandler(param));
+                        }
+
+                        var handlerMsg = responseHandler == null ? "is null" : "is not null";
+                        throw new UnknownResponseTypeException(string.Format("ResponseType = {0} & ResponseHandler {1}", response.ResponseType, handlerMsg));
+
+                }
+            });
+        }
+
+        /// <summary>
+        ///     Seralizes the object.
+        /// </summary>
+        /// <param name="obj">The object.</param>
+        /// <returns></returns>
+        private static string SeralizeObject(object obj)
+        {
+            return JsonConvert.SerializeObject(obj, Formatting.None, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
         }
 
         /// <summary>
@@ -118,7 +201,20 @@
         {
             lock (this.syncResponses)
             {
-                return this.responses.FirstOrDefault(r => r.RequestId == requestId);
+                return this.responses.FirstOrDefault(r => r.RequestId == requestId && r.ResponseType!=ResponseTypes.None);
+            }
+        }
+
+        /// <summary>
+        /// Gets the response.
+        /// </summary>
+        /// <param name="requestId">The request identifier.</param>
+        /// <returns></returns>
+        private Response GetRequest(uint requestId)
+        {
+            lock (this.syncResponses)
+            {
+                return this.responses.FirstOrDefault(r => r.RequestId == requestId && r.ResponseType == ResponseTypes.None);
             }
         }
 
@@ -131,77 +227,25 @@
             lock (this.syncResponses)
             {
                 this.responses.Add(response);
-                Console.WriteLine(this.responses.Count);
             }
         }
 
-        /// <summary>
-        ///     Gets the context.
-        /// </summary>
-        /// <param name="config">The configuration.</param>
-        /// <returns></returns>
-        public static uint GetContext(string config)
-        {
-            var cfg = new tc_string_data_t {Value = config};
-            var jsonPtr = Lib.tc_create_context(cfg);
-            var json = Lib.tc_read_string(jsonPtr);
-            var value = JObject.Parse(json.Value)["result"].Value<uint>();
-            //Lib.tc_destroy_string(jsonPtr);
-            return value;
-        }
+        #endregion
 
         /// <summary>
-        ///     Requests the library.
-        /// </summary>
-        /// <param name="functionName">Name of the function.</param>
-        /// <param name="functionParams">The function parameters.</param>
-        /// <returns></returns>
-        internal async Task<JObject> RequestLibrary(string functionName, string functionParams)
-        {
-            return await Task<JObject>.Factory.StartNew(() =>
-            {
-                var requestId = this.NextIndex();
-                var fName = new tc_string_data_t {Value = functionName};
-                var fParams = new tc_string_data_t {Value = functionParams};
-
-                Lib.tc_request(this.context, fName, fParams, requestId, this.LibraryResponseHandler);
-
-                var time = DateTime.Now.Millisecond;
-                var response = this.GetResponse(requestId);
-                while (response == null && DateTime.Now.Millisecond - time < Timeout)
-                {
-                    response = this.GetResponse(requestId);
-                }
-
-                if (response == null)
-                {
-                    throw new TimeoutException(string.Format("Time out of respone, function name = {0}", functionName));
-                }
-
-                this.RemoveResponse(response);
-                
-                switch (response.ResponseType)
-                {
-                    case ResponseTypes.Success:
-                        return JObject.Parse(response.ReturnValue);
-                    case ResponseTypes.Error:
-                        throw new Exception(response.ReturnValue);
-                    //case ResponseTypes.Nop:
-                    //    break;
-                    //case ResponseTypes.Custom:
-                    //    break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
-                }
-            });
-        }
-
-        /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {
             Lib.tc_destroy_context(this.context);
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="param">The parameter.</param>
+    /// <returns></returns>
+    public delegate string ResponseHandler (string param);
 }

@@ -3,7 +3,7 @@
     /// <summary>
     /// The response
     /// </summary>
-    public class Response
+    internal class Response
     {
         /// <summary>
         /// Gets the request identifier.
@@ -30,12 +30,23 @@
         public string ReturnValue { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Response"/> class.
+        /// Gets or sets the response handler.
+        /// </summary>
+        /// <value>
+        /// The response handler.
+        /// </value>
+        public ResponseHandler ResponseHandler { get; }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Response" /> class.
         /// </summary>
         /// <param name="requestId">The request identifier.</param>
-        public Response(uint requestId)
+        /// <param name="responseHandler">The response handler.</param>
+        public Response(uint requestId, ResponseHandler responseHandler)
         {
+            this.ResponseType = ResponseTypes.None;
             this.RequestId = requestId;
+            this.ResponseHandler = responseHandler;
         }
     }
 }

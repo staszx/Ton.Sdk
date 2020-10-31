@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading.Tasks;
-    using Newtonsoft.Json.Linq;
+    using Client;
     using Request;
 
     /// <summary>
@@ -10,50 +10,123 @@
     /// </summary>
     public sealed class TonClient : IDisposable
     {
+        #region Fields
+
         /// <summary>
         ///     The request library
         /// </summary>
         private readonly RequestLib requestLib;
 
+        #endregion
+
+        #region Constructors
+
         /// <summary>
         ///     Initializes a new instance of the <see cref="TonClient" /> class.
         /// </summary>
         /// <param name="config">The configuration.</param>
-        public TonClient(string config)
+        public TonClient(ClientConfig config)
         {
             this.requestLib = new RequestLib(config);
+            this.Utils = new Utils.Utils(this);
+            this.Abi = new Abi.Abi(this);
+            this.Tvm = new Tvm.Tvm(this);
+            this.Client = new Client.Client(this);
+            this.Net = new Net.Net(this);
+            this.Processing = new Processing.Processing(this);
+            this.Crypto = new Crypto.Crypto(this);
+            this.Boc = new Boc.Boc(this);
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        ///     Gets the API reference.
+        ///     Gets the utils.
         /// </summary>
-        /// <returns></returns>
-        public async Task<JObject> GetApiReference()
-        {
-           return await this.requestLib.RequestLibrary("client.get_api_reference", "");
-        }
+        /// <value>
+        ///     The utils.
+        /// </value>
+        public Utils.Utils Utils { get; }
 
         /// <summary>
-        ///     Gets the version.
+        ///     Gets the abi.
         /// </summary>
-        /// <returns></returns>
-        public async Task<string> GetVersion()
-        {
-            var result  = await this.requestLib.RequestLibrary("client.version", "");
-            return result.GetValue("version").Value<string>();
-        }
+        /// <value>
+        ///     The abi.
+        /// </value>
+        public Abi.Abi Abi { get; }
 
         /// <summary>
-        /// Builds the information.
+        ///     Gets the TVM.
         /// </summary>
-        /// <returns></returns>
-        public async Task<JObject> BuildInfo()
-        {
-            return await this.requestLib.RequestLibrary("client.build_info", "");
-        }
+        /// <value>
+        ///     The TVM.
+        /// </value>
+        public Tvm.Tvm Tvm { get; }
 
         /// <summary>
-        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        ///     Gets the client.
+        /// </summary>
+        /// <value>
+        ///     The client.
+        /// </value>
+        public Client.Client Client { get; }
+
+        /// <summary>
+        ///     Gets the net.
+        /// </summary>
+        /// <value>
+        ///     The net.
+        /// </value>
+        public Net.Net Net { get; }
+
+        /// <summary>
+        ///     Gets the processing.
+        /// </summary>
+        /// <value>
+        ///     The processing.
+        /// </value>
+        public Processing.Processing Processing { get; }
+
+        /// <summary>
+        ///     Gets the crypto.
+        /// </summary>
+        /// <value>
+        ///     The crypto.
+        /// </value>
+        public Crypto.Crypto Crypto { get; }
+
+        /// <summary>
+        ///     Gets the boc.
+        /// </summary>
+        /// <value>
+        ///     The boc.
+        /// </value>
+        public Boc.Boc Boc { get; }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Requests the specified function name.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="functionName">Name of the function.</param>
+        /// <param name="functionParams">The function parameters.</param>
+        /// <param name="responseHandler">The response handler.</param>
+        /// <returns></returns>
+        internal async Task<T> Request<T>(string functionName, object functionParams = null, ResponseHandler responseHandler = null)
+        {
+            return await this.requestLib.Request<T>(functionName, functionParams, responseHandler);
+        }
+
+        #endregion
+
+        /// <summary>
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
         public void Dispose()
         {

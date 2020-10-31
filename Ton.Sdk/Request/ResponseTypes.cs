@@ -6,6 +6,11 @@
     public enum ResponseTypes : uint
     {
         /// <summary>
+        /// The none
+        /// </summary>
+        None = 255,
+
+        /// <summary>
         ///     The  response success
         /// </summary>
         Success = 0,
