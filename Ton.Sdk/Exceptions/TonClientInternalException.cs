@@ -6,7 +6,7 @@
     /// The Ton client internal exception
     /// </summary>
     /// <seealso cref="System.Exception" />
-    internal class TonClientInternalException : Exception
+    public class TonClientInternalException : Exception
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TonClientInternalException"/> class.

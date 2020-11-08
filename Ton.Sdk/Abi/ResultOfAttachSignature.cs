@@ -2,6 +2,10 @@
 {
     using Newtonsoft.Json;
 
+    /// <summary>
+    ///     The result of attach signature
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#ResultOfAttachSignature
+    /// </summary>
     public class ResultOfAttachSignature
     {
         #region Properties

@@ -6,17 +6,17 @@
     public enum AccountForExecutorType
     {
         /// <summary>
-        /// The none
+        ///     The none
         /// </summary>
         None,
 
         /// <summary>
-        /// The uninit
+        ///     The uninit
         /// </summary>
         Uninit,
 
         /// <summary>
-        /// The account
+        ///     The account
         /// </summary>
         Account
     }

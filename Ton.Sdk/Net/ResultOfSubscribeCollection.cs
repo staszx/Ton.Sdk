@@ -3,6 +3,8 @@ namespace Ton.Sdk.Net
     using Newtonsoft.Json;
 
     /// <summary>
+    ///     The result of subscribe collection
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#resultofsubscribecollection
     /// </summary>
     public class ResultOfSubscribeCollection
     {

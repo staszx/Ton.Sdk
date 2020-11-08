@@ -4,6 +4,7 @@
 
     /// <summary>
     ///     The result of encoded message body
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#resultofencodemessagebody
     /// </summary>
     public class ResultOfEncodeMessageBody
     {

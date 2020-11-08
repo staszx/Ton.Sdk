@@ -1,5 +1,6 @@
 namespace Ton.Sdk.Crypto
 {
+    using Client;
     using Newtonsoft.Json;
 
     public class ParamsOfMnemonicDeriveSignKeys
@@ -13,7 +14,7 @@ namespace Ton.Sdk.Crypto
         public string Path { get; set; }
 
         [JsonProperty("dictionary")]
-        public uint? Dictionary { get; set; }
+        public MnemonicDictionary? Dictionary { get; set; }
 
         [JsonProperty("word_count")]
         public uint? WordCount { get; set; }

@@ -9,6 +9,7 @@ namespace Ton.Sdk.External
 
     /// <summary>
     ///     The external library import
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/json_interface.md
     /// </summary>
     internal static class Lib
     {

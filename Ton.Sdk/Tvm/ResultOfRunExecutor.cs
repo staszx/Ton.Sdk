@@ -1,11 +1,12 @@
 namespace Ton.Sdk.Tvm
 {
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
     using Processing;
 
     /// <summary>
-    /// The Result of run executor
-    /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_tvm.md#run_executor
+    ///     The Result of run executor
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_tvm.md#run_executor
     /// </summary>
     public class ResultOfRunExecutor
     {
@@ -18,7 +19,7 @@ namespace Ton.Sdk.Tvm
         ///     The transaction.
         /// </value>
         [JsonProperty("transaction")]
-        public object Transaction { get; set; }
+        public JObject Transaction { get; set; }
 
         /// <summary>
         ///     Gets or sets the out messages.

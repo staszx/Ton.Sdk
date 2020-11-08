@@ -11,12 +11,12 @@ namespace Ton.Sdk.Abi
         #region Properties
 
         /// <summary>
-        /// Gets or sets the body.
+        ///     Gets or sets the body.
         /// </summary>
         /// <value>
-        /// The body.
+        ///     The body.
         /// </value>
-        [JsonProperty("body")] 
+        [JsonProperty("body")]
         public string Body { get; set; }
 
         #endregion

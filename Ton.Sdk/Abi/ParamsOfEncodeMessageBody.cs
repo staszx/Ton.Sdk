@@ -4,6 +4,7 @@
 
     /// <summary>
     /// The params of encode message body
+    /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#ParamsOfEncodeMessageBody
     /// </summary>
     public class ParamsOfEncodeMessageBody
     {

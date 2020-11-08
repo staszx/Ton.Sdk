@@ -2,9 +2,11 @@
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     ///     The contract ABI
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#abi
     /// </summary>
     public class ContractAbi
     {
@@ -16,7 +18,7 @@
         /// <param name="abiContract">The abi contract.</param>
         public ContractAbi(string abiContract)
         {
-            this.Value = abiContract;
+            this.Value = new JRaw(abiContract);
             this.Type = ContractAbiType.Serialized;
         }
 

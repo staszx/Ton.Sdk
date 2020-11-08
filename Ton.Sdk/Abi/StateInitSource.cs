@@ -9,9 +9,10 @@
     /// </summary>
     public class StateInitSource
     {
+        #region Constructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateInitSource"/> class.
+        ///     Initializes a new instance of the <see cref="StateInitSource" /> class.
         /// </summary>
         /// <param name="source">The source.</param>
         public StateInitSource(MessageSource source)
@@ -21,7 +22,7 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateInitSource"/> class.
+        ///     Initializes a new instance of the <see cref="StateInitSource" /> class.
         /// </summary>
         /// <param name="code">The code.</param>
         /// <param name="data">The data.</param>
@@ -35,7 +36,7 @@
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="StateInitSource"/> class.
+        ///     Initializes a new instance of the <see cref="StateInitSource" /> class.
         /// </summary>
         /// <param name="tvc">The TVC.</param>
         /// <param name="publicKey">The public key.</param>
@@ -48,77 +49,83 @@
             this.StateInitParams = stateInit;
         }
 
+        #endregion
+
+        #region Properties
+
         /// <summary>
-        /// Gets or sets the type.
+        ///     Gets or sets the type.
         /// </summary>
         /// <value>
-        /// The type.
+        ///     The type.
         /// </value>
         [JsonProperty("type")]
         [JsonConverter(typeof(StringEnumConverter))]
-        public StateInitSourceType Type { get; set; }
+        public StateInitSourceType Type { get; }
 
         /// <summary>
-        /// Gets or sets the source.
+        ///     Gets or sets the source.
         /// </summary>
         /// <value>
-        /// The source.
+        ///     The source.
         /// </value>
         [JsonProperty("source")]
-        public MessageSource Source { get; set; }
+        public MessageSource Source { get; }
 
         /// <summary>
-        /// Gets or sets the code.
+        ///     Gets or sets the code.
         /// </summary>
         /// <value>
-        /// The code.
+        ///     The code.
         /// </value>
         [JsonProperty("code")]
-        public string Code { get; set; }
+        public string Code { get; }
 
         /// <summary>
-        /// Gets or sets the data.
+        ///     Gets or sets the data.
         /// </summary>
         /// <value>
-        /// The data.
+        ///     The data.
         /// </value>
         [JsonProperty("data")]
-        public string Data { get; set; }
+        public string Data { get; }
 
         /// <summary>
-        /// Gets or sets the library.
+        ///     Gets or sets the library.
         /// </summary>
         /// <value>
-        /// The library.
+        ///     The library.
         /// </value>
         [JsonProperty("library")]
-        public string Library { get; set; }
+        public string Library { get; }
 
         /// <summary>
-        /// Gets or sets the TVC.
+        ///     Gets or sets the TVC.
         /// </summary>
         /// <value>
-        /// The TVC.
+        ///     The TVC.
         /// </value>
         [JsonProperty("tvc")]
-        public string Tvc { get; set; }
+        public string Tvc { get; }
 
         /// <summary>
-        /// Gets or sets the public key.
+        ///     Gets or sets the public key.
         /// </summary>
         /// <value>
-        /// The public key.
+        ///     The public key.
         /// </value>
         [JsonProperty("public_key")]
-        public string PublicKey { get; set; }
+        public string PublicKey { get; }
 
         /// <summary>
-        /// Gets or sets the state initialize parameters.
+        ///     Gets or sets the state initialize parameters.
         /// </summary>
         /// <value>
-        /// The state initialize parameters.
+        ///     The state initialize parameters.
         /// </value>
         [JsonProperty("init_params")]
-        public StateInitParams StateInitParams { get; set; }
+        public StateInitParams StateInitParams { get; }
+
+        #endregion
     }
 }

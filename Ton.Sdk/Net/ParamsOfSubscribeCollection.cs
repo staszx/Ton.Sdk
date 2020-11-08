@@ -3,7 +3,8 @@ namespace Ton.Sdk.Net
     using Newtonsoft.Json;
 
     /// <summary>
-    /// 
+    ///     The params of subscribe collection
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#paramsofsubscribecollection
     /// </summary>
     public class ParamsOfSubscribeCollection
     {
@@ -25,7 +26,7 @@ namespace Ton.Sdk.Net
         ///     The filter.
         /// </value>
         [JsonProperty("filter")]
-        public object Filter { get; set; }
+        public Filter Filter { get; set; }
 
         /// <summary>
         ///     Gets or sets the result.

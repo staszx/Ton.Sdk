@@ -2,6 +2,7 @@ namespace Ton.Sdk.Processing
 {
     using Abi;
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     ///     The decoded output
@@ -19,7 +20,7 @@ namespace Ton.Sdk.Processing
         ///     The out messages.
         /// </value>
         [JsonProperty("out_messages")]
-        public DecodedMessageBody OutMessages { get; set; }
+        public DecodedMessageBody[] OutMessages { get; set; }
 
         /// <summary>
         ///     Gets or sets the output.
@@ -28,7 +29,7 @@ namespace Ton.Sdk.Processing
         ///     The output.
         /// </value>
         [JsonProperty("output")]
-        public object Output { get; set; }
+        public JObject Output { get; set; }
 
         #endregion
     }

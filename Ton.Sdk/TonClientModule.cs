@@ -10,6 +10,9 @@
     {
         #region Fields
 
+        /// <summary>
+        /// The ton client
+        /// </summary>
         private readonly TonClient tonClient;
 
         #endregion

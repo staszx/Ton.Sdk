@@ -2,6 +2,10 @@ namespace Ton.Sdk.Net
 {
     using Newtonsoft.Json;
 
+    /// <summary>
+    ///     The params of query collection
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#paramsofquerycollection
+    /// </summary>
     public class ParamsOfQueryCollection
     {
         #region Properties
@@ -22,7 +26,7 @@ namespace Ton.Sdk.Net
         ///     The filter.
         /// </value>
         [JsonProperty("filter")]
-        public object Filter { get; set; }
+        public Filter Filter { get; set; }
 
         /// <summary>
         ///     Gets or sets the result.

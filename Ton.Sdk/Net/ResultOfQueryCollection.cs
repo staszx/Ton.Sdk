@@ -1,8 +1,11 @@
 namespace Ton.Sdk.Net
 {
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
+    ///     The result of query collection
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#resultofquerycollection
     /// </summary>
     public class ResultOfQueryCollection
     {
@@ -15,7 +18,7 @@ namespace Ton.Sdk.Net
         ///     The result.
         /// </value>
         [JsonProperty("result")]
-        public object[] Result { get; set; }
+        public JObject[] Result { get; set; }
 
         #endregion
     }

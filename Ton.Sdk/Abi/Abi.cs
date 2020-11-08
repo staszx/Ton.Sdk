@@ -40,7 +40,8 @@
         /// <param name="paramsOfAttachSignatureToMessageBody">The parameters of attach signature to message body.</param>
         /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#attach_signature_to_message_body
         /// <returns>ResultOfAttachSignature</returns>
-        public async Task<ResultOfAttachSignature> AttachSignatureToMessageBody(ParamsOfAttachSignatureToMessageBody paramsOfAttachSignatureToMessageBody)
+        public async Task<ResultOfAttachSignature> AttachSignatureToMessageBody(
+            ParamsOfAttachSignatureToMessageBody paramsOfAttachSignatureToMessageBody)
         {
             return await this.Request<ResultOfAttachSignature>("abi.attach_signature_to_message_body", paramsOfAttachSignatureToMessageBody);
         }
@@ -78,6 +79,16 @@
             return await this.Request<DecodedMessageBody>("abi.decode_message", paramsOfDecodeMessage);
         }
 
+        /// <summary>
+        ///     Decodes the message body.
+        /// </summary>
+        /// <param name="paramsOfDecodeMessageBody">The parameters of decode message body.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#decode_message
+        /// <returns>DecodedMessageBody</returns>
+        public async Task<DecodedMessageBody> DecodeMessageBody(ParamsOfDecodeMessageBody paramsOfDecodeMessageBody)
+        {
+            return await this.Request<DecodedMessageBody>("abi.decode_message_body", paramsOfDecodeMessageBody);
+        }
 
         /// <summary>
         ///     Encodes the message.
@@ -85,7 +96,7 @@
         /// <param name="paramsOfEncodeAccount">The parameters of encode account.</param>
         /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#encode_account
         /// <returns>ResultOfEncodeAccount</returns>
-        public async Task<ResultOfEncodeAccount> EncodeMessage(ParamsOfEncodeAccount paramsOfEncodeAccount)
+        public async Task<ResultOfEncodeAccount> EncodeAccount(ParamsOfEncodeAccount paramsOfEncodeAccount)
         {
             return await this.Request<ResultOfEncodeAccount>("abi.encode_account", paramsOfEncodeAccount);
         }

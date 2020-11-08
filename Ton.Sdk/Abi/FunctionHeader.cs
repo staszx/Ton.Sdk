@@ -4,6 +4,7 @@
 
     /// <summary>
     ///     The function header
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#functionheader
     /// </summary>
     public class FunctionHeader
     {

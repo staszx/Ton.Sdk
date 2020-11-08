@@ -3,6 +3,7 @@ namespace Ton.Sdk.Client
     using Newtonsoft.Json;
 
     /// <summary>
+    /// The crypto config
     /// </summary>
     public class CryptoConfig
     {

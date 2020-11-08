@@ -4,6 +4,7 @@
 
     /// <summary>
     ///     The params of attach signature
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#paramsofattachsignature
     /// </summary>
     public class ParamsOfAttachSignature
     {

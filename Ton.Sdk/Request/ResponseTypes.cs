@@ -6,7 +6,7 @@
     public enum ResponseTypes : uint
     {
         /// <summary>
-        /// The none
+        ///     The none
         /// </summary>
         None = 255,
 

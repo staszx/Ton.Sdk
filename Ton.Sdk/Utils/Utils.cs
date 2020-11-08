@@ -4,6 +4,7 @@
 
     /// <summary>
     ///     The utils
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_utils.md
     /// </summary>
     /// <seealso cref="Ton.Sdk.TonClientModule" />
     public class Utils : TonClientModule
@@ -26,8 +27,8 @@
         ///     Converts the adress.
         /// </summary>
         /// <param name="paramsOfConvertAddress">The parameters of convert address.</param>
-        /// <returns></returns>
         /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_utils.md#convert_address
+        /// <returns>ResultOfConvertAddress</returns>
         public async Task<ResultOfConvertAddress> ConvertAddress(ParamsOfConvertAddress paramsOfConvertAddress)
         {
             return await this.Request<ResultOfConvertAddress>("utils.convert_address", paramsOfConvertAddress);

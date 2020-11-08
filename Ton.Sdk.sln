@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ton.Sdk", "Ton.Sdk.csproj", "{4802164E-DCC5-4842-AFE6-0A44799F582C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ton.Sdk", "Ton.Sdk\Ton.Sdk.csproj", "{4802164E-DCC5-4842-AFE6-0A44799F582C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ton.Sdk.Tests", "..\Ton.Sdk.Tests\Ton.Sdk.Tests.csproj", "{1577072D-6181-4FEF-82FB-520D2ACCEEC8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ton.Sdk.Tests", "Ton.Sdk.Tests\Ton.Sdk.Tests.csproj", "{1577072D-6181-4FEF-82FB-520D2ACCEEC8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

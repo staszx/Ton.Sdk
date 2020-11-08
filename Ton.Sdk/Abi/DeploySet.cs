@@ -4,6 +4,7 @@
 
     /// <summary>
     ///     The Deploy Set
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#deployset
     /// </summary>
     public class DeploySet
     {
@@ -34,7 +35,7 @@
         ///     The inital data.
         /// </value>
         [JsonProperty("initial_data")]
-        public object initalData { get; set; }
+        public object InitalData { get; set; }
 
         #endregion
     }

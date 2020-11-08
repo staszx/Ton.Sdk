@@ -1,6 +1,7 @@
 namespace Ton.Sdk.Client
 {
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     ///     The result of build info
@@ -17,7 +18,7 @@ namespace Ton.Sdk.Client
         ///     The build information.
         /// </value>
         [JsonProperty("build_info")]
-        public object BuildInfo { get; set; }
+        public JObject BuildInfo { get; set; }
 
         #endregion
     }

@@ -3,16 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Threading;
     using System.Threading.Tasks;
     using Client;
     using Exceptions;
     using External;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
-    using Utils;
 
     /// <summary>
     ///     The request library
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/json_interface.md
     /// </summary>
     internal sealed class RequestLib : IDisposable
     {
@@ -33,6 +34,11 @@
         private readonly uint context;
 
         /// <summary>
+        /// The request time out
+        /// </summary>
+        private readonly uint requestTimeOut = Timeout;
+
+        /// <summary>
         ///     The responses
         /// </summary>
         private readonly List<Response> responses = new List<Response>();
@@ -41,8 +47,6 @@
         ///     The synchronize responses
         /// </summary>
         private readonly object syncResponses = new object();
-
-        private uint requestTimeOut = Timeout;
 
         #endregion
 
@@ -72,14 +76,23 @@
         /// <param name="finished">if set to <c>true</c> [finished].</param>
         public void LibraryResponseHandler(uint requestId, tc_string_data_t paramJson, uint responseType, bool finished)
         {
-            Response response = this.GetRequest(requestId);
-            response.ResponseType = (ResponseTypes)responseType;
-            response.ReturnValue = paramJson.Value;
-            this.AddResponse(response);
-            if (finished)
+            Response response;
+            if (responseType >= 100)
             {
-                this.RemoveResponse(response);
+                response = this.GetResponse(requestId, true);
+                response?.ResponseHandler?.Invoke(paramJson.Value, (ResponseTypes) responseType);
+                return;
             }
+
+            response = this.GetRequest(requestId);
+            if (response == null)
+            {
+                return;
+            }
+
+            response.ReturnValue = paramJson.Value;
+            response.Finished = finished;
+            response.ResponseType = (ResponseTypes) responseType;
         }
 
         /// <summary>
@@ -89,16 +102,19 @@
         /// <returns></returns>
         public static uint GetContext(string config)
         {
-            tc_string_data_t cfg = new tc_string_data_t { Value = config };
-            IntPtr jsonPtr = Lib.tc_create_context(cfg);
-            tc_string_data_t json = Lib.tc_read_string(jsonPtr);
-            uint value = JObject.Parse(json.Value)["result"].Value<uint>();
-            //Lib.tc_destroy_string(jsonPtr);
+            var cfg = new tc_string_data_t
+            {
+                Value = config
+            };
+            var jsonPtr = Lib.tc_create_context(cfg);
+            var json = Lib.tc_read_string(jsonPtr);
+            var value = JObject.Parse(json.Value)["result"].Value<uint>();
+            Lib.tc_destroy_string(jsonPtr);
             return value;
         }
 
         /// <summary>
-        /// Requests the library.
+        ///     Requests the library.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="functionName">Name of the function.</param>
@@ -109,20 +125,27 @@
         {
             return await Task<T>.Factory.StartNew(() =>
             {
-                uint requestId = this.NextIndex();
+                var requestId = this.NextIndex();
                 var param = functionParams == null ? "" : SeralizeObject(functionParams);
-                tc_string_data_t fName = new tc_string_data_t { Value = functionName };
-                tc_string_data_t fParams = new tc_string_data_t { Value = param };
-                Response request = new Response(requestId, responseHandler);
+                var fName = new tc_string_data_t
+                {
+                    Value = functionName
+                };
+                var fParams = new tc_string_data_t
+                {
+                    Value = param
+                };
+                var request = new Response(requestId, responseHandler);
                 this.AddResponse(request);
 
                 Lib.tc_request(this.context, fName, fParams, requestId, this.LibraryResponseHandler);
 
-                int time = DateTime.Now.Millisecond;
-                Response response = this.GetResponse(requestId);
-                while (response == null && DateTime.Now.Millisecond - time < this.requestTimeOut)
+                var time = DateTime.Now;
+                var response = this.GetResponse(requestId);
+                while (response == null && (DateTime.Now - time).TotalMilliseconds < this.requestTimeOut)
                 {
                     response = this.GetResponse(requestId);
+                    Thread.Sleep(100);
                 }
 
                 if (response == null)
@@ -130,22 +153,27 @@
                     throw new TimeoutException(string.Format("Time out of request, function name = {0}", functionName));
                 }
 
+                if (response.Finished)
+                {
+                    this.RemoveResponse(response);
+                }
+
                 switch (response.ResponseType)
                 {
                     case ResponseTypes.Success:
-                        return JsonConvert.DeserializeObject<T>(response.ReturnValue);
-                    case ResponseTypes.Error:
-                        var error = JsonConvert.DeserializeObject<ClientError>(response.ReturnValue);
-                        throw new TonClientInternalException(string.Format("Inner exception:\nCode:{0}, Message:{1}", error.Code, error.Message));
-                    default:
-                        if ((int) response.ResponseType >= 100 && response.ResponseHandler != null)
+                        if (response.ReturnValue == null)
                         {
-                            return JsonConvert.DeserializeObject<T> (request.ResponseHandler(param));
+                            return default;
                         }
 
+                        return DeserializeObject<T>(response.ReturnValue);
+                    case ResponseTypes.Error:
+                        var error = DeserializeObject<ClientError>(response.ReturnValue);
+                        throw new TonClientInternalException(string.Format("Inner exception:\nCode:{0}, Message:{1}", error.Code, error.Message));
+                    default:
                         var handlerMsg = responseHandler == null ? "is null" : "is not null";
-                        throw new UnknownResponseTypeException(string.Format("ResponseType = {0} & ResponseHandler {1}", response.ResponseType, handlerMsg));
-
+                        throw new UnknownResponseTypeException(string.Format("ResponseType = {0} & ResponseHandler {1}", response.ResponseType
+                            , handlerMsg));
                 }
             });
         }
@@ -158,6 +186,20 @@
         private static string SeralizeObject(object obj)
         {
             return JsonConvert.SerializeObject(obj, Formatting.None, new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore
+            });
+        }
+
+        /// <summary>
+        ///     Deserializes the object.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="json">The json.</param>
+        /// <returns></returns>
+        private static T DeserializeObject<T>(string json)
+        {
+            return JsonConvert.DeserializeObject<T>(json, new JsonSerializerSettings
             {
                 NullValueHandling = NullValueHandling.Ignore
             });
@@ -196,17 +238,23 @@
         ///     Gets the response.
         /// </summary>
         /// <param name="requestId">The request identifier.</param>
+        /// <param name="anyType">if set to <c>true</c> [any type].</param>
         /// <returns></returns>
-        private Response GetResponse(uint requestId)
+        private Response GetResponse(uint requestId, bool anyType = false)
         {
             lock (this.syncResponses)
             {
-                return this.responses.FirstOrDefault(r => r.RequestId == requestId && r.ResponseType!=ResponseTypes.None);
+                if (anyType)
+                {
+                    return this.responses.FirstOrDefault(r => r.RequestId == requestId);
+                }
+
+                return this.responses.FirstOrDefault(r => r.RequestId == requestId && r.ResponseType != ResponseTypes.None);
             }
         }
 
         /// <summary>
-        /// Gets the response.
+        ///     Gets the response.
         /// </summary>
         /// <param name="requestId">The request identifier.</param>
         /// <returns></returns>
@@ -242,10 +290,8 @@
     }
 
     /// <summary>
-    /// 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
     /// <param name="param">The parameter.</param>
-    /// <returns></returns>
-    public delegate string ResponseHandler (string param);
+    //public delegate string ResponseHandler (string param);
+    public delegate void ResponseHandler(string param, ResponseTypes type);
 }

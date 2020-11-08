@@ -31,7 +31,7 @@
         /// <returns>ResultOfRunExecutor</returns>
         public async Task<ResultOfRunExecutor> RunExecutor(ParamsOfRunExecutor paramsOfRunExecutor)
         {
-            return await this.Request<ResultOfRunExecutor>("abi.run_executor", paramsOfRunExecutor);
+            return await this.Request<ResultOfRunExecutor>("tvm.run_executor", paramsOfRunExecutor);
         }
 
         /// <summary>

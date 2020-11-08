@@ -23,6 +23,11 @@
         /// <summary>
         ///     The event
         /// </summary>
-        Event
+        Event,
+
+        /// <summary>
+        /// The none
+        /// </summary>
+        None
     }
 }

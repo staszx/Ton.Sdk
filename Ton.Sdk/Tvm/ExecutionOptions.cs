@@ -1,11 +1,10 @@
 namespace Ton.Sdk.Tvm
 {
     using Newtonsoft.Json;
-    using Request;
 
     /// <summary>
-    /// The class execution options
-    /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_tvm.md#executionoptions
+    ///     The class execution options
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_tvm.md#executionoptions
     /// </summary>
     /// <seealso cref="Ton.Sdk.TonClientModule" />
     public class ExecutionOptions
@@ -13,37 +12,37 @@ namespace Ton.Sdk.Tvm
         #region Properties
 
         /// <summary>
-        /// Gets or sets the blockchain configuration.
+        ///     Gets or sets the blockchain configuration.
         /// </summary>
         /// <value>
-        /// The blockchain configuration.
+        ///     The blockchain configuration.
         /// </value>
         [JsonProperty("blockchain_config")]
         public string BlockchainConfig { get; set; }
 
         /// <summary>
-        /// Gets or sets the block time.
+        ///     Gets or sets the block time.
         /// </summary>
         /// <value>
-        /// The block time.
+        ///     The block time.
         /// </value>
         [JsonProperty("block_time")]
         public int BlockTime { get; set; }
 
         /// <summary>
-        /// Gets or sets the block lt.
+        ///     Gets or sets the block lt.
         /// </summary>
         /// <value>
-        /// The block lt.
+        ///     The block lt.
         /// </value>
         [JsonProperty("block_lt")]
         public long BlockLt { get; set; }
 
         /// <summary>
-        /// Gets or sets the transaction lt.
+        ///     Gets or sets the transaction lt.
         /// </summary>
         /// <value>
-        /// The transaction lt.
+        ///     The transaction lt.
         /// </value>
         [JsonProperty("transaction_lt")]
         public long TransactionLt { get; set; }

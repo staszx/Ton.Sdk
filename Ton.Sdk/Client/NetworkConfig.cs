@@ -3,6 +3,8 @@ namespace Ton.Sdk.Client
     using Newtonsoft.Json;
 
     /// <summary>
+    ///     The Network config
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_client.md#networkconfig
     /// </summary>
     public class NetworkConfig
     {

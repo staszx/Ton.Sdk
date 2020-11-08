@@ -1,78 +1,112 @@
 namespace Ton.Sdk.Tests
 {
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Client;
     using External;
+    using Net;
+    using Newtonsoft.Json.Linq;
     using NUnit.Framework;
+    using NUnit.Framework.Constraints;
+    using Request;
 
-    public class ClientTests
+    /// <summary>
+    ///     The client module tests
+    /// </summary>
+    /// <seealso cref="Ton.Sdk.Tests.TonClientTestCommon" />
+    public class ClientTests : TonClientTestCommon
     {
         #region Methods
 
-        [SetUp]
-        public void Setup()
-        {
-        }
-
+        /// <summary>
+        ///     Creates the context test.
+        /// </summary>
         [Test]
         public void CreateContextTest()
         {
-            string text = "{\"{}\", 2 }";
-            tc_string_data_t config = new tc_string_data_t { Value = text };
-            IntPtr jsonPtr = Lib.tc_create_context(config);
-            tc_string_data_t json = Lib.tc_read_string(jsonPtr);
+            var text = "{\"{}\", 2 }";
+            var config = new tc_string_data_t
+            {
+                Value = text
+            };
+            var jsonPtr = Lib.tc_create_context(config);
+            var json = Lib.tc_read_string(jsonPtr);
             Console.WriteLine(json);
         }
 
+        /// <summary>
+        ///     Gets the version test.
+        /// </summary>
         [Test]
-        public void GetVersionTest()
+        public async Task GetVersionTest()
         {
-            TonClient client = new TonClient(new ClientConfig());
-            Console.WriteLine(client.Client.GetVersion().Result.Version);
+            using var client = new TonClient(new ClientConfig());
+            var result = await client.Client.GetVersion();
+            Assert.AreEqual(LibVersion, result.Version);
         }
 
+        /// <summary>
+        ///     Gets the API reference test.
+        /// </summary>
         [Test]
-        public void GetApiReferenceTest()
+        public async Task GetApiReferenceTest()
         {
-            TonClient client = new TonClient(new ClientConfig());
-            Console.WriteLine(client.Client.GetApiReference().Result.Api);
+            using var client = new TonClient(new ClientConfig());
+            var result = await client.Client.GetApiReference();
+            var version = result.Api["version"].Value<string>();
+            Assert.AreEqual(LibVersion, version);
         }
 
+        /// <summary>
+        ///     Gets the build information test.
+        /// </summary>
         [Test]
-        public void GetBuildInfoTest()
+        public async Task GetBuildInfoTest()
         {
-            using (TonClient client = new TonClient(new ClientConfig()))
+            var expectedBuildNumber = 788;
+            using var client = new TonClient(new ClientConfig());
+            var result = await client.Client.BuildInfo();
+            var buildNumber = result.BuildInfo["buildNumber"].Value<int>();
+            Assert.AreEqual(expectedBuildNumber, buildNumber);
+        }
+
+        /// <summary>
+        /// Multithreadings the test.
+        /// </summary>
+        [Test]
+        public void MultithreadingTest()
+        {
+            using var client = new TonClient(this.ClientConfig);
+            var param = new ParamsOfQueryCollection
             {
-                Console.WriteLine(client.Client.BuildInfo().Result.BuildInfo);
+                Collection = "messages",
+                Result = "id",
+                Limit = 1
+            };
+
+            List<Task> tasks = new List<Task>();
+            int threads = Process.GetCurrentProcess().Threads.Count;
+            int maxThreads = 0;
+            for (int i = 0; i < 10; i++)
+            {
+                tasks.Add(client.Net.QueryCollection(param));
+                int count = Process.GetCurrentProcess().Threads.Count;
+                if ( count > maxThreads)
+                {
+                    maxThreads = count;
+                }
             }
+
+            Task.WaitAll(tasks.ToArray());
+
+            Console.WriteLine(threads);
+            Console.WriteLine(maxThreads);
+            Assert.Greater(maxThreads, threads);
         }
 
         #endregion
-
-        //[Test]
-        //public void MultithreadingGetVersionTest()
-        //{
-        //    string text = "{\"{}\": 2 }";
-        //    tc_string_data_t config = new tc_string_data_t { Value = text };
-        //    IntPtr jsonPtr = Lib.tc_create_context(config);
-        //    tc_string_data_t json = Lib.tc_read_string(jsonPtr);
-        //    var context = JObject.Parse(json.Value)["result"].Value<uint>();
-
-        //    //uint context = parse_create_context_json(json.content, json.len)
-        //    RequestLib lib = new RequestLib();
-        //    List<Task<Response>> tasks = new List<Task<Response>>();
-        //    for (int i = 0; i < 10000; i++)
-        //    {
-        //        tasks.Add(lib.GetVersion(context));
-        //    }
-
-        //    Task.WaitAll(tasks.ToArray());
-
-        //    for (int i = 0; i < tasks.Count; i++)
-        //    {
-        //        Console.WriteLine(tasks[i].Result.ReturnValue);
-        //    }
-
-        //}
     }
 }

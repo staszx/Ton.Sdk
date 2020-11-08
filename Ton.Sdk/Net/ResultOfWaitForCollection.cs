@@ -1,9 +1,11 @@
 namespace Ton.Sdk.Net
 {
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
-    /// 
+    ///     The result of wait collection
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#resultofwaitforcollection
     /// </summary>
     public class ResultOfWaitForCollection
     {
@@ -16,7 +18,7 @@ namespace Ton.Sdk.Net
         ///     The result.
         /// </value>
         [JsonProperty("result")]
-        public object Result { get; set; }
+        public JObject Result { get; set; }
 
         #endregion
     }

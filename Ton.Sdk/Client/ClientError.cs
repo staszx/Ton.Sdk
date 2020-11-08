@@ -3,6 +3,8 @@ namespace Ton.Sdk.Client
     using Newtonsoft.Json;
 
     /// <summary>
+    ///     The client Error
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_client.md#clienterror
     /// </summary>
     public class ClientError
     {

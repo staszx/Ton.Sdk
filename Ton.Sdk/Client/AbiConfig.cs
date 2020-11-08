@@ -3,6 +3,8 @@ namespace Ton.Sdk.Client
     using Newtonsoft.Json;
 
     /// <summary>
+    ///     The AbiConfig
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_client.md#abiconfig
     /// </summary>
     public class AbiConfig
     {
@@ -33,7 +35,7 @@ namespace Ton.Sdk.Client
         ///     The message expiration timeout grow factor.
         /// </value>
         [JsonProperty("message_expiration_timeout_grow_factor")]
-        public uint? MessageExpirationTimeoutGrowFactor { get; set; }
+        public float? MessageExpirationTimeoutGrowFactor { get; set; }
 
         #endregion
     }

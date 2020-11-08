@@ -4,6 +4,8 @@ namespace Ton.Sdk.Tvm
     using Newtonsoft.Json.Converters;
 
     /// <summary>
+    ///     The account for executor
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_tvm.md#AccountForExecutor
     /// </summary>
     /// <seealso cref="Ton.Sdk.TonClientModule" />
     public class AccountForExecutor
@@ -25,6 +27,7 @@ namespace Ton.Sdk.Tvm
         /// <param name="unlimitedBalance">The unlimited balance.</param>
         public AccountForExecutor(string boc, bool? unlimitedBalance = null)
         {
+            this.Type = AccountForExecutorType.Account;
             this.Boc = boc;
             this.UnlimitedBalance = unlimitedBalance;
         }
@@ -80,7 +83,7 @@ namespace Ton.Sdk.Tvm
         /// <returns></returns>
         public static AccountForExecutor GetUninit()
         {
-            AccountForExecutor accountForExecutor = new AccountForExecutor();
+            var accountForExecutor = new AccountForExecutor();
             accountForExecutor.Type = AccountForExecutorType.Uninit;
             return accountForExecutor;
         }

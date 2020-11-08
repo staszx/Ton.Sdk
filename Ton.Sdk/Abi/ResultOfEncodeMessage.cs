@@ -4,6 +4,7 @@
 
     /// <summary>
     ///     The result of encode message
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#resultofencodemessage
     /// </summary>
     public class ResultOfEncodeMessage
     {
@@ -33,7 +34,7 @@
         /// <value>
         ///     The address.
         /// </value>
-        [JsonProperty("adress")]
+        [JsonProperty("address")]
         public string Address { get; set; }
 
         /// <summary>

@@ -31,7 +31,7 @@
         /// <returns>ResultOfParse</returns>
         public async Task<ResultOfParse> ParseMessage(ParamsOfParse paramsOfParse)
         {
-            return await this.Request<ResultOfParse>("abi.parse_message", paramsOfParse);
+            return await this.Request<ResultOfParse>("boc.parse_message", paramsOfParse);
         }
 
         /// <summary>
@@ -42,7 +42,7 @@
         /// <returns>ResultOfParse</returns>
         public async Task<ResultOfParse> ParseTransaction(ParamsOfParse paramsOfParse)
         {
-            return await this.Request<ResultOfParse>("abi.parse_transaction", paramsOfParse);
+            return await this.Request<ResultOfParse>("boc.parse_transaction", paramsOfParse);
         }
 
         /// <summary>
@@ -53,7 +53,18 @@
         /// <returns>ResultOfParse</returns>
         public async Task<ResultOfParse> ParseAccount(ParamsOfParse paramsOfParse)
         {
-            return await this.Request<ResultOfParse>("abi.parse_account", paramsOfParse);
+            return await this.Request<ResultOfParse>("boc.parse_account", paramsOfParse);
+        }
+
+        /// <summary>
+        /// Parses the block.
+        /// </summary>
+        /// <param name="paramsOfParse">The parameters of parse.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_boc.md#parse_block
+        /// <returns>ResultOfParse</returns>
+        public async Task<ResultOfParse> ParseBlock(ParamsOfParse paramsOfParse)
+        {
+            return await this.Request<ResultOfParse>("boc.parse_block", paramsOfParse);
         }
 
         /// <summary>
@@ -64,7 +75,7 @@
         /// <returns>ResultOfGetBlockchainConfig</returns>
         public async Task<ResultOfGetBlockchainConfig> GetBlockChainConfig(ParamsOfGetBlockchainConfig paramsOfGetBlockchainConfig)
         {
-            return await this.Request<ResultOfGetBlockchainConfig>("abi.get_blockchain_config", paramsOfGetBlockchainConfig);
+            return await this.Request<ResultOfGetBlockchainConfig>("boc.get_blockchain_config", paramsOfGetBlockchainConfig);
         }
 
         #endregion

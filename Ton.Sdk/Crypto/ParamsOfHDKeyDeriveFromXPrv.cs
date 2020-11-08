@@ -10,7 +10,7 @@ namespace Ton.Sdk.Crypto
         public string Xprv { get; set; }
 
         [JsonProperty("child_index")]
-        public uint ChildIndex { get; set; }
+        public int ChildIndex { get; set; }
 
         [JsonProperty("hardened")]
         public bool Hardened { get; set; }

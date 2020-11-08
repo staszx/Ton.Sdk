@@ -6,14 +6,14 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="Crypyo\**" />
     <EmbeddedResource Remove="Crypyo\**" />
     <None Remove="Crypyo\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Library\" />
   </ItemGroup>
 
   <ItemGroup>
