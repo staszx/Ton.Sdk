@@ -114,7 +114,7 @@
                 "6272357bccb601db2b821cb0f5f564ab519212d242cf31961fe9a3c50a30b236012618296b4f769355c0e9567cd25b366f3c037435c498c82e5305622adbc70e";
             var expectedSignedMessage =
                 "te6ccgECGAEAA6wAA0eIAAt9aqvShfTon7Lei1PVOhUEkEEZQkhDKPgNyzeTL6YSEbAHAgEA4bE5Gr3mWwDtlcEOWHr6slWoyQlpIWeYyw/00eKFGFkbAJMMFLWnu0mq4HSrPmktmzeeAboa4kxkFymCsRVt44dTHxAj/Hd67jWQF7peccWoU/dbMCBJBB6YdPCVZcJlJkAAAF0ZyXLg19VzGRotV8/gAQHAAwIDzyAGBAEB3gUAA9AgAEHaY+IEf47vXcayAvdLzji1Cn7rZgQJIIPTDp4SrLhMpMwCJv8A9KQgIsABkvSg4YrtU1gw9KEKCAEK9KQg9KEJAAACASANCwHI/38h7UTQINdJwgGOENP/0z/TANF/+GH4Zvhj+GKOGPQFcAGAQPQO8r3XC//4YnD4Y3D4Zn/4YeLTAAGOHYECANcYIPkBAdMAAZTT/wMBkwL4QuIg+GX5EPKoldMAAfJ64tM/AQwAao4e+EMhuSCfMCD4I4ED6KiCCBt3QKC53pL4Y+CANPI02NMfAfgjvPK50x8B8AH4R26S8jzeAgEgEw4CASAQDwC9uotV8/+EFujjXtRNAg10nCAY4Q0//TP9MA0X/4Yfhm+GP4Yo4Y9AVwAYBA9A7yvdcL//hicPhjcPhmf/hh4t74RvJzcfhm0fgA+ELIy//4Q88LP/hGzwsAye1Uf/hngCASASEQDluIAGtb8ILdHCfaiaGn/6Z/pgGi//DD8M3wx/DFvfSDK6mjofSBv6PwikDdJGDhvfCFdeXAyfABkZP2CEGRnwoRnRoIEB9AAAAAAAAAAAAAAAAAAIGeLZMCAQH2AGHwhZGX//CHnhZ/8I2eFgGT2qj/8M8ADFuZPCot8ILdHCfaiaGn/6Z/pgGi//DD8M3wx/DFva4b/yupo6Gn/7+j8AGRF7gAAAAAAAAAAAAAAAAhni2fA58jjyxi9EOeF/+S4/YAYfCFkZf/8IeeFn/wjZ4WAZPaqP/wzwAgFIFxQBCbi3xYJQFQH8+EFujhPtRNDT/9M/0wDRf/hh+Gb4Y/hi3tcN/5XU0dDT/9/R+ADIi9wAAAAAAAAAAAAAAAAQzxbPgc+Rx5YxeiHPC//JcfsAyIvcAAAAAAAAAAAAAAAAEM8Wz4HPklb4sEohzwv/yXH7ADD4QsjL//hDzws/+EbPCwDJ7VR/FgAE+GcActxwItDWAjHSADDcIccAkvI74CHXDR+S8jzhUxGS8jvhwQQighD////9vLGS8jzgAfAB+EdukvI83g==";
-            var tvc = this.LoadSample("events.tvc", true);
+            var tvc = this.LoadSample("Events.tvc", true);
             var abi = this.LoadSample("Events.abi.json");
             using var client = new TonClient(new ClientConfig());
             var paramsOfEncodeMessage = new ParamsOfEncodeMessage();
@@ -211,7 +211,7 @@
             var expectedEncodedId = "05beb555e942fa744fd96f45a9ea9d0a8248208ca12421947c06e59bc997d309";
             var expectedIdWithoutKey = "84a9510b0278047154b1b84b6dd445c1349d8d42d75a2eece07b72ad6e4ea136";
             var abi = this.LoadSample("Events.abi.json");
-            var tvc = this.LoadSample("events.tvc", true);
+            var tvc = this.LoadSample("Events.tvc", true);
             var messageSource = new MessageSource(encodedDeployMessage, new ContractAbi(abi));
             var stateInitSource = new StateInitSource(messageSource);
             using var client = new TonClient(new ClientConfig());
@@ -257,7 +257,7 @@
         public async Task EncodeAccountExceptionTest()
         {
             var abi = this.LoadSample("Events.abi.json");
-            var tvc = this.LoadSample("events.tvc", true);
+            var tvc = this.LoadSample("Events.tvc", true);
             var deploySet = new DeploySet
             {
                 Tvc = tvc

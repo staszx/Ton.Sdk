@@ -33,7 +33,7 @@ namespace Ton.Sdk.External
         /// </value>
         public string Value
         {
-            get => Marshal.PtrToStringAnsi(this.content).Substring(0, (int)this.len);
+            get => Marshal.PtrToStringAnsi(this.content, this.len);
             set
             {
                 this.content = Marshal.StringToHGlobalAnsi(value);

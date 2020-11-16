@@ -23,7 +23,7 @@
         {
             var expectedResultDecoded = "{\"out_messages\":[]}";
             var abi = this.LoadSample("Events.abi.json");
-            var tvc = this.LoadSample("events.tvc", true);
+            var tvc = this.LoadSample("Events.tvc", true);
             using var client = new TonClient(this.ClientConfig);
             var keypair = await client.Crypto.GenerateRandomSignKeys();
             var signer = new Signer(keypair.Public, keypair.Secret);
@@ -57,7 +57,7 @@
         {
             var expectedResultDecoded = "{\"out_messages\":[]}";
             var abi = this.LoadSample("Events.abi.json");
-            var tvc = this.LoadSample("events.tvc", true);
+            var tvc = this.LoadSample("Events.tvc", true);
             using var client = new TonClient(this.ClientConfig);
             var keypair = await client.Crypto.GenerateRandomSignKeys();
             var signer = new Signer(keypair.Public, keypair.Secret);
@@ -95,7 +95,7 @@
         {
             var expectedResultDecoded = "{\"out_messages\":[]}";
             var abi = this.LoadSample("Events.abi.json");
-            var tvc = this.LoadSample("events.tvc", true);
+            var tvc = this.LoadSample("Events.tvc", true);
             using var client = new TonClient(this.ClientConfig);
             var keypair = await client.Crypto.GenerateRandomSignKeys();
             var signer = new Signer(keypair.Public, keypair.Secret);
@@ -137,7 +137,7 @@
         {
             var expectedResultDecoded = "{\"out_messages\":[]}";
             var abi = this.LoadSample("Events.abi.json");
-            var tvc = this.LoadSample("events.tvc", true);
+            var tvc = this.LoadSample("Events.tvc", true);
             using var client = new TonClient(this.ClientConfig);
             var keypair = await client.Crypto.GenerateRandomSignKeys();
             var signer = new Signer(keypair.Public, keypair.Secret);
@@ -194,7 +194,7 @@
         private async Task ProcessMessageExceptionTest()
         {
             var abi = this.LoadSample("Events.abi.json");
-            var tvc = this.LoadSample("events.tvc", true);
+            var tvc = this.LoadSample("Events.tvc", true);
             using var client = new TonClient(this.ClientConfig);
             var keypair = await client.Crypto.GenerateRandomSignKeys();
             var signer = new Signer(keypair.Public, keypair.Secret);
