@@ -19,7 +19,7 @@ namespace Ton.Sdk.External
         /// <summary>
         ///     The library path
         /// </summary>
-        private const string libraryPath = @".\Library\tonclient_1_win32_dll.dll";
+        private const string LibraryPath = @".\Library\tonclient_1_win32_dll.dll";
 #else
         /// <summary>
         /// The library path linux
