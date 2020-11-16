@@ -4,10 +4,20 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Platforms>AnyCPU;x86</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Configurations>Debug;Release;DebugLinux;ReleaseLinux;ReleaseLinux</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLinux|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DefineConstants>TRACE;Linux</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLinux|AnyCPU'">
+    <DefineConstants>TRACE;Linux</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="Library\tonclient_1_linux.so">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Library\tonclient_1_win32_dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

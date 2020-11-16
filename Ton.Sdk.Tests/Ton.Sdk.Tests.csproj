@@ -6,9 +6,15 @@
     <IsPackable>false</IsPackable>
 
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+
+    <Configurations>Debug;Release;DebugLinux;ReleaseLinux</Configurations>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLinux|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 

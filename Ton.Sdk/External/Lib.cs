@@ -15,12 +15,19 @@ namespace Ton.Sdk.External
     {
         #region Constants
 
+#if !Linux
         /// <summary>
         ///     The library path
         /// </summary>
         private const string libraryPath = @".\Library\tonclient_1_win32_dll.dll";
+#else
+        /// <summary>
+        /// The library path linux
+        /// </summary>
+        private const string LibraryPath = @"./Library/tonclient_1_linux.so";
+#endif
 
-        #endregion
+#endregion
 
         #region Methods
 
@@ -29,14 +36,14 @@ namespace Ton.Sdk.External
         /// </summary>
         /// <param name="text">The text.</param>
         /// <returns></returns>
-        [DllImport(libraryPath)]
+        [DllImport(LibraryPath)]
         internal static extern tc_string_data_t tc_read_string(IntPtr text);
 
         /// <summary>
         /// Tcs the destroy string.
         /// </summary>
         /// <param name="text">The text.</param>
-        [DllImport(libraryPath)]
+        [DllImport(LibraryPath)]
         internal static extern void tc_destroy_string(IntPtr text);
 
         /// <summary>
@@ -44,14 +51,14 @@ namespace Ton.Sdk.External
         /// </summary>
         /// <param name="config">The configuration.</param>
         /// <returns></returns>
-        [DllImport(libraryPath)]
+        [DllImport(LibraryPath)]
         internal static extern IntPtr tc_create_context(tc_string_data_t config);
 
         /// <summary>
         /// Tcs the destroy context.
         /// </summary>
         /// <param name="context">The context.</param>
-        [DllImport(libraryPath)]
+        [DllImport(LibraryPath)]
         internal static extern void tc_destroy_context(uint context);
 
         /// <summary>
@@ -62,9 +69,9 @@ namespace Ton.Sdk.External
         /// <param name="function_params_json">The function parameters json.</param>
         /// <param name="request_id">The request identifier.</param>
         /// <param name="response_handler">The response handler.</param>
-        [DllImport(libraryPath)]
+        [DllImport(LibraryPath)]
         internal static extern void tc_request(uint context, tc_string_data_t function_name, tc_string_data_t function_params_json, uint request_id, tc_response_handler_t response_handler);
 
-        #endregion
+#endregion
     }
 }
