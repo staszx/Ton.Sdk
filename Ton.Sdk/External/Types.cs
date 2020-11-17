@@ -8,6 +8,7 @@ namespace Ton.Sdk.External
 {
     using System;
     using System.Runtime.InteropServices;
+    using System.Text;
 
     /// <summary>
     /// The external lib string structure
@@ -33,11 +34,12 @@ namespace Ton.Sdk.External
         /// </value>
         public string Value
         {
-            get => Marshal.PtrToStringAnsi(this.content, this.len);
+            get => Marshal.PtrToStringUTF8(this.content, this.len);
             set
             {
-                this.content = Marshal.StringToHGlobalAnsi(value);
-                this.len = value.Length;
+                System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
+                this.len = utf8.GetByteCount(value);
+                this.content = Marshal.StringToCoTaskMemUTF8(value);
             }
         }
 
@@ -51,6 +53,15 @@ namespace Ton.Sdk.External
         public override string ToString()
         {
             return Value;
+        }
+
+        private static string Utf8ToAscii(string text)
+        {
+            System.Text.Encoding utf8 = System.Text.Encoding.UTF8;
+            Byte[] encodedBytes = utf8.GetBytes(text);
+            Byte[] convertedBytes = Encoding.Convert(Encoding.UTF8, Encoding.ASCII, encodedBytes);
+            System.Text.Encoding ascii = System.Text.Encoding.ASCII;
+            return ascii.GetString(convertedBytes);
         }
     }
 

@@ -15,16 +15,24 @@ namespace Ton.Sdk.External
     {
         #region Constants
 
-#if !Linux
-        /// <summary>
-        ///     The library path
-        /// </summary>
-        private const string LibraryPath = @".\Library\tonclient_1_win32_dll.dll";
-#else
-        /// <summary>
+#if Linux
+/// <summary>
         /// The library path linux
         /// </summary>
         private const string LibraryPath = @"./Library/tonclient_1_linux.so";
+        
+#else
+#if MAC
+        /// <summary>
+        ///     The library path MacOs
+        /// </summary>
+        private const string LibraryPath = @".\Library\tonclient_1.darwin";
+#else
+        /// <summary>
+        ///     The library path
+        /// </summary>
+        private const string LibraryPath = @".\Library\tonclient_1_win32.dll";
+#endif
 #endif
 
 #endregion
