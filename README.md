@@ -3,7 +3,7 @@ TON SDK Client library .NET bindings (version 1.0.0)
 
 ## Build And Testing
 [Microsoft VisualStudio 2019](https://visualstudio.microsoft.com/ru/downloads/) Windows \
-[JetBrain Rider 20.2 Windows](https://www.jetbrains.com/rider/)  Windows, Linux, MacOs
+[JetBrain Rider 20.2](https://www.jetbrains.com/rider/)  Windows, Linux, MacOs
 
 ## Library
 https://github.com/tonlabs/TON-SDK
