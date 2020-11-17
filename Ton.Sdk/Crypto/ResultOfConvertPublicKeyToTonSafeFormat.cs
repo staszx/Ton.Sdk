@@ -10,6 +10,12 @@ namespace Ton.Sdk.Crypto
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the ton public key.
+        /// </summary>
+        /// <value>
+        /// The ton public key.
+        /// </value>
         [JsonProperty("ton_public_key")]
         public string TonPublicKey { get; set; }
 

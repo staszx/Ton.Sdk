@@ -10,6 +10,12 @@ namespace Ton.Sdk.Crypto
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the CRC.
+        /// </summary>
+        /// <value>
+        /// The CRC.
+        /// </value>
         [JsonProperty("crc")]
         public uint Crc { get; set; }
 

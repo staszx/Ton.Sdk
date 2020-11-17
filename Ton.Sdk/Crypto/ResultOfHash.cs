@@ -10,6 +10,12 @@ namespace Ton.Sdk.Crypto
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the hash.
+        /// </summary>
+        /// <value>
+        /// The hash.
+        /// </value>
         [JsonProperty("hash")]
         public string Hash { get; set; }
 

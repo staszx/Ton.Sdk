@@ -10,9 +10,21 @@ namespace Ton.Sdk.Crypto
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the signed.
+        /// </summary>
+        /// <value>
+        /// The signed.
+        /// </value>
         [JsonProperty("signed")]
         public string Signed { get; set; }
 
+        /// <summary>
+        /// Gets or sets the signature.
+        /// </summary>
+        /// <value>
+        /// The signature.
+        /// </value>
         [JsonProperty("signature")]
         public string Signature { get; set; }
 

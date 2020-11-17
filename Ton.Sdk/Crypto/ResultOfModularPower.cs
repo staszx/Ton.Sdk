@@ -10,6 +10,12 @@ namespace Ton.Sdk.Crypto
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the modular power.
+        /// </summary>
+        /// <value>
+        /// The modular power.
+        /// </value>
         [JsonProperty("modular_power")]
         public string ModularPower { get; set; }
 

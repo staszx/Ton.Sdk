@@ -10,6 +10,12 @@ namespace Ton.Sdk.Crypto
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the XPRV.
+        /// </summary>
+        /// <value>
+        /// The XPRV.
+        /// </value>
         [JsonProperty("xprv")]
         public string Xprv { get; set; }
 

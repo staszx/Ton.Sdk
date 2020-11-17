@@ -10,6 +10,12 @@ namespace Ton.Sdk.Crypto
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the encrypted.
+        /// </summary>
+        /// <value>
+        /// The encrypted.
+        /// </value>
         [JsonProperty("encrypted")]
         public string Encrypted { get; set; }
 

@@ -10,6 +10,12 @@ namespace Ton.Sdk.Crypto
     {
         #region Properties
 
+        /// <summary>
+        /// Gets or sets the factors.
+        /// </summary>
+        /// <value>
+        /// The factors.
+        /// </value>
         [JsonProperty("factors")]
         public string[] Factors { get; set; }
 

@@ -4,7 +4,7 @@
 
     /// <summary>
     ///     The Key pair
-    /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#KeyPair
+    ///     https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#KeyPair
     /// </summary>
     public class KeyPair
     {
