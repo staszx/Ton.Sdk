@@ -8,6 +8,8 @@ TON SDK Client library .NET bindings (version 1.0.0)
 ## Library
 https://github.com/tonlabs/TON-SDK
 
+*a compatible version of the library is included in the project*
+
 ## References
 [.NetCore 3.1 SDK](https://dotnet.microsoft.com/download/dotnet-core/3.1)
 
