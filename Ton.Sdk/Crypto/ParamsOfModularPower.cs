@@ -2,6 +2,10 @@ namespace Ton.Sdk.Crypto
 {
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// The Params Of Modular Power
+    /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#ParamsOfModularPower
+    /// </summary>
     public class ParamsOfModularPower
     {
         #region Properties

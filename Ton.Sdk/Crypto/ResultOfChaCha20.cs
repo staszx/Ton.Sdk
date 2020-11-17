@@ -3,7 +3,8 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    ///     The result of chacha20
+    /// The result of chacha20
+    /// 
     /// </summary>
     public class ResultOfChacha20
     {

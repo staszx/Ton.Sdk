@@ -2,6 +2,10 @@ namespace Ton.Sdk.Crypto
 {
     using Newtonsoft.Json;
 
+    /// <summary>
+    /// The Result Of HD Key Secret From XPrv
+    /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#ResultOfHDKeySecretFromXPrv
+    /// </summary>
     public class ResultOfHDKeySecretFromXPrv
     {
         #region Properties

@@ -2,7 +2,10 @@ namespace Ton.Sdk.Crypto
 {
     using Client;
     using Newtonsoft.Json;
-
+    /// <summary>    public class ParamsOfMnemonicDeriveSignKeys
+    Params Of HD Key XPrv From Mnemonic
+    /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#ParamsOfHDKeyXPrvFromMnemonic
+    /// </summary>
     public class ParamsOfMnemonicDeriveSignKeys
     {
         #region Properties
