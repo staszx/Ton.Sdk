@@ -20,6 +20,7 @@ https://github.com/tonlabs/TON-SDK
 ## Supported OS
  - Windows x64
  - Linux x64
+ - MacOs x64
   
  ## Code Example
  ```csharp
