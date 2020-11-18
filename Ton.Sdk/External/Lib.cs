@@ -5,7 +5,6 @@
 namespace Ton.Sdk.External
 {
     using System;
-    using System.Runtime.InteropServices;
 
     /// <summary>
     ///     The external library import
@@ -13,73 +12,134 @@ namespace Ton.Sdk.External
     /// </summary>
     internal static class Lib
     {
-        #region Constants
-
-#if Linux
-/// <summary>
-        /// The library path linux
-        /// </summary>
-        private const string LibraryPath = @"./Library/tonclient_1_linux.so";
-        
-#else
-#if MAC
-        /// <summary>
-        ///     The library path MacOs
-        /// </summary>
-        private const string LibraryPath = @".\Library\tonclient_1.darwin";
-#else
-        /// <summary>
-        ///     The library path
-        /// </summary>
-        private const string LibraryPath = @".\Library\tonclient_1_win32.dll";
-#endif
-#endif
-
-#endregion
-
         #region Methods
 
         /// <summary>
-        /// Tcs the read string.
+        ///     Tcs the read string.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <returns></returns>
-        [DllImport(LibraryPath)]
-        internal static extern tc_string_data_t tc_read_string(IntPtr text);
+        internal static tc_string_data_t tc_read_string(IntPtr text)
+        {
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.MacOSX:
+                    return LibMac.tc_read_string(text);
+                case PlatformID.Unix:
+                    return LibLinux.tc_read_string(text);
+                case PlatformID.Win32NT:
+                case PlatformID.Win32S:
+                case PlatformID.Win32Windows:
+                case PlatformID.WinCE:
+                    return LibWindows.tc_read_string(text);
+                default:
+                    throw new NotSupportedException("OS not supported!");
+            }
+        }
 
         /// <summary>
-        /// Tcs the destroy string.
+        ///     Tcs the destroy string.
         /// </summary>
         /// <param name="text">The text.</param>
-        [DllImport(LibraryPath)]
-        internal static extern void tc_destroy_string(IntPtr text);
+        internal static void tc_destroy_string(IntPtr text)
+        {
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.MacOSX:
+                    LibMac.tc_destroy_string(text);
+                    return;
+                case PlatformID.Unix:
+                    LibLinux.tc_destroy_string(text);
+                    return;
+                case PlatformID.Win32NT:
+                case PlatformID.Win32S:
+                case PlatformID.Win32Windows:
+                case PlatformID.WinCE:
+                    LibWindows.tc_destroy_string(text);
+                    return;
+                default:
+                    throw new NotSupportedException("OS not supported!");
+            }
+        }
 
         /// <summary>
-        /// Tcs the create context.
+        ///     Tcs the create context.
         /// </summary>
         /// <param name="config">The configuration.</param>
         /// <returns></returns>
-        [DllImport(LibraryPath)]
-        internal static extern IntPtr tc_create_context(tc_string_data_t config);
+        internal static IntPtr tc_create_context(tc_string_data_t config)
+        {
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.MacOSX:
+                    return LibMac.tc_create_context(config);
+                case PlatformID.Unix:
+                    return LibLinux.tc_create_context(config);
+                case PlatformID.Win32NT:
+                case PlatformID.Win32S:
+                case PlatformID.Win32Windows:
+                case PlatformID.WinCE:
+                    return LibWindows.tc_create_context(config);
+                default:
+                    throw new NotSupportedException("OS not supported!");
+            }
+        }
 
         /// <summary>
-        /// Tcs the destroy context.
+        ///     Tcs the destroy context.
         /// </summary>
         /// <param name="context">The context.</param>
-        [DllImport(LibraryPath)]
-        internal static extern void tc_destroy_context(uint context);
+        internal static void tc_destroy_context(uint context)
+        {
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.MacOSX:
+                    LibMac.tc_destroy_context(context);
+                    return;
+                case PlatformID.Unix:
+                    LibLinux.tc_destroy_context(context);
+                    return;
+                case PlatformID.Win32NT:
+                case PlatformID.Win32S:
+                case PlatformID.Win32Windows:
+                case PlatformID.WinCE:
+                    LibWindows.tc_destroy_context(context);
+                    return;
+                default:
+                    throw new NotSupportedException("OS not supported!");
+            }
+        }
 
         /// <summary>
-        /// Tcs the request.
+        ///     Tcs the request.
         /// </summary>
         /// <param name="context">The context.</param>
         /// <param name="function_name">Name of the function.</param>
         /// <param name="function_params_json">The function parameters json.</param>
         /// <param name="request_id">The request identifier.</param>
         /// <param name="response_handler">The response handler.</param>
-        [DllImport(LibraryPath)]
-        internal static extern void tc_request(uint context, tc_string_data_t function_name, tc_string_data_t function_params_json, uint request_id, tc_response_handler_t response_handler);
+        internal static void tc_request(uint context, tc_string_data_t function_name, tc_string_data_t function_params_json, uint request_id,
+            tc_response_handler_t response_handler)
+        {
+            switch (Environment.OSVersion.Platform)
+            {
+                case PlatformID.MacOSX:
+                    LibMac.tc_request(context, function_name, function_params_json, request_id, response_handler);
+                    return;
+                case PlatformID.Unix:
+                    LibLinux.tc_request(context, function_name, function_params_json, request_id, response_handler);
+                    return;
+                case PlatformID.Win32NT:
+                case PlatformID.Win32S:
+                case PlatformID.Win32Windows:
+                case PlatformID.WinCE:
+                    LibWindows.tc_request(context, function_name, function_params_json, request_id, response_handler);
+                    return;
+                default:
+                    throw new NotSupportedException("OS not supported!");
+            }
+        }
 
-#endregion
+        #endregion
     }
 }

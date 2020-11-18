@@ -5,35 +5,21 @@
     <Platforms>AnyCPU;x86</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Configurations>Debug;Release;DebugLinux;ReleaseLinux;DebugMac;ReleaseMac;ReleaseMac</Configurations>
+    <PackageId>Net.Ton.Sdk</PackageId>
+    <Authors>Stanislav Popov</Authors>
+    <Product>Net.Ton.Sdk</Product>
+    <Description>TON SDK Client library .NET bindings (version 1.0.0)</Description>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/staszx/Ton.Sdk</RepositoryUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugMac|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DefineConstants>TRACE;MAC</DefineConstants>
   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugLinux|AnyCPU'">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DefineConstants>TRACE;Linux</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseLinux|AnyCPU'">
-    <DefineConstants>TRACE;Linux</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseMac|AnyCPU'">
-    <DefineConstants>TRACE;MAC</DefineConstants>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Crypyo\**" />
-    <EmbeddedResource Remove="Crypyo\**" />
-    <None Remove="Crypyo\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -47,12 +33,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Library\tonclient_1_win32.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Library\tonclient_1_win32_dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Library\tonclient_1_win32_dll.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

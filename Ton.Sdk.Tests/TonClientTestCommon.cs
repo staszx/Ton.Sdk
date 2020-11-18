@@ -47,31 +47,6 @@
         ///     The client configuration
         /// </summary>
         public ClientConfig ClientConfig = new ClientConfig(DevHost);
-        //{
-        //    Network = new NetworkConfig
-        //    {
-        //        ServerAddress = DevHost, //"http://localhost",
-        //        NetworkRetriesCount = 5,
-        //        MessageRetriesCount = 5,
-        //        MessageProcessingTimeout = 40000,
-        //        WaitForTimeout = 40000,
-        //        OutOfSyncThreshold = 15000,
-        //        AccessKey = ""
-        //    },
-        //    Crypto = new CryptoConfig
-        //    {
-        //        MnemonicDictionary = 1,
-        //        MnemonicWordCount = 12,
-        //        HdkeyDerivationPath = "m/44'/396'/0'/0/0",
-        //        HdkeyCompliant = true
-        //    },
-        //    Abi = new AbiConfig
-        //    {
-        //        Workchain = 0,
-        //        MessageExpirationTimeout = 40000,
-        //        MessageExpirationTimeoutGrowFactor = 1.5f
-        //    }
-        //};
 
         #endregion
 

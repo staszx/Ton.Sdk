@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Net.Ton.Sdk</id>
+    <version>1.0.0</version>
+    <authors>Stanislav Popov</authors>
+    <owners>Stanislav Popov</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TON SDK Client library .NET bindings (version 1.0.0)</description>
+    <repository url="https://github.com/staszx/Ton.Sdk" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.1">
+        <dependency id="Newtonsoft.Json" version="12.0.3" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="Library\tonclient_1.darwin" target="lib\netstandard2.1\Library\tonclient_1.darwin"></file>
+    <file src="Library\tonclient_1_linux.so" target="lib\netstandard2.1\Library\tonclient_1_linux.so"></file>
+    <file src="Library\tonclient_1_win32.dll" target="lib\netstandard2.1\Library\tonclient_1_win32.dll"></file>
+  </files>
+</package>

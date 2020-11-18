@@ -4,15 +4,11 @@ namespace Ton.Sdk.Tests
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
-    using System.Threading;
     using System.Threading.Tasks;
     using Client;
-    using External;
     using Net;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
-    using NUnit.Framework.Constraints;
-    using Request;
 
     /// <summary>
     ///     The client module tests
@@ -21,22 +17,6 @@ namespace Ton.Sdk.Tests
     public class ClientTests : TonClientTestCommon
     {
         #region Methods
-
-        /// <summary>
-        ///     Creates the context test.
-        /// </summary>
-        [Test]
-        public void CreateContextTest()
-        {
-            var text = "{\"{}\", 2 }";
-            var config = new tc_string_data_t
-            {
-                Value = text
-            };
-            var jsonPtr = Lib.tc_create_context(config);
-            var json = Lib.tc_read_string(jsonPtr);
-            Console.WriteLine(json);
-        }
 
         /// <summary>
         ///     Gets the version test.
