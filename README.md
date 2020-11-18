@@ -23,7 +23,10 @@ https://github.com/tonlabs/TON-SDK
  - **Windows x64** (tested in the Windows 10 x64, VisualStudio 2019)
  - **Linux x64**  (tested in the Ubuntu 20.04 x64, JetBrains Rider 20.2)
  - **MacOs x64**  (tested in the macOS Catalina 10.15.6, JetBrains Rider 20.2)
-  
+
+## Nuget
+**Install-Package Net.Ton.Sdk -Version 1.0.6**
+
  ## Code Example
  ```csharp
 public async Task ExampleClient()
