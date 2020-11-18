@@ -54,15 +54,6 @@ namespace Ton.Sdk.External
         {
             return this.Value;
         }
-
-        private static string Utf8ToAscii(string text)
-        {
-            var utf8 = Encoding.UTF8;
-            var encodedBytes = utf8.GetBytes(text);
-            var convertedBytes = Encoding.Convert(Encoding.UTF8, Encoding.ASCII, encodedBytes);
-            var ascii = Encoding.ASCII;
-            return ascii.GetString(convertedBytes);
-        }
     }
 
     /// <summary>

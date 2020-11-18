@@ -4,13 +4,14 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Platforms>AnyCPU;x86</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Configurations>Debug;Release;DebugLinux;ReleaseLinux;DebugMac;ReleaseMac;ReleaseMac</Configurations>
+    <Configurations>Debug;Release;</Configurations>
     <PackageId>Net.Ton.Sdk</PackageId>
     <Authors>Stanislav Popov</Authors>
     <Product>Net.Ton.Sdk</Product>
     <Description>TON SDK Client library .NET bindings (version 1.0.0)</Description>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/staszx/Ton.Sdk</RepositoryUrl>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
