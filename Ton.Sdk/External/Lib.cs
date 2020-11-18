@@ -5,6 +5,7 @@
 namespace Ton.Sdk.External
 {
     using System;
+    using System.Runtime.InteropServices;
 
     /// <summary>
     ///     The external library import
@@ -15,13 +16,39 @@ namespace Ton.Sdk.External
         #region Methods
 
         /// <summary>
+        ///     Gets the operating system.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="Exception">Cannot determine operating system!</exception>
+        public static PlatformID GetOperatingSystem()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                return PlatformID.MacOSX;
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                return PlatformID.Unix;
+            }
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return PlatformID.Win32NT;
+            }
+
+            throw new Exception("Cannot determine operating system!");
+        }
+
+        /// <summary>
         ///     Tcs the read string.
         /// </summary>
         /// <param name="text">The text.</param>
         /// <returns></returns>
         internal static tc_string_data_t tc_read_string(IntPtr text)
         {
-            switch (Environment.OSVersion.Platform)
+            var platform = GetOperatingSystem();
+            switch (platform)
             {
                 case PlatformID.MacOSX:
                     return LibMac.tc_read_string(text);
@@ -43,7 +70,8 @@ namespace Ton.Sdk.External
         /// <param name="text">The text.</param>
         internal static void tc_destroy_string(IntPtr text)
         {
-            switch (Environment.OSVersion.Platform)
+            var platform = GetOperatingSystem();
+            switch (platform)
             {
                 case PlatformID.MacOSX:
                     LibMac.tc_destroy_string(text);
@@ -69,7 +97,8 @@ namespace Ton.Sdk.External
         /// <returns></returns>
         internal static IntPtr tc_create_context(tc_string_data_t config)
         {
-            switch (Environment.OSVersion.Platform)
+            var platform = GetOperatingSystem();
+            switch (platform)
             {
                 case PlatformID.MacOSX:
                     return LibMac.tc_create_context(config);
@@ -91,7 +120,8 @@ namespace Ton.Sdk.External
         /// <param name="context">The context.</param>
         internal static void tc_destroy_context(uint context)
         {
-            switch (Environment.OSVersion.Platform)
+            var platform = GetOperatingSystem();
+            switch (platform)
             {
                 case PlatformID.MacOSX:
                     LibMac.tc_destroy_context(context);
@@ -121,7 +151,8 @@ namespace Ton.Sdk.External
         internal static void tc_request(uint context, tc_string_data_t function_name, tc_string_data_t function_params_json, uint request_id,
             tc_response_handler_t response_handler)
         {
-            switch (Environment.OSVersion.Platform)
+            var platform = GetOperatingSystem();
+            switch (platform)
             {
                 case PlatformID.MacOSX:
                     LibMac.tc_request(context, function_name, function_params_json, request_id, response_handler);

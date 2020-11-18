@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Net.Ton.Sdk</id>
-    <version>1.0.0</version>
+    <version>1.0.2</version>
     <authors>Stanislav Popov</authors>
     <owners>Stanislav Popov</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
