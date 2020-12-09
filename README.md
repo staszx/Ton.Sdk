@@ -3,7 +3,12 @@
 SDK is implemented in the C# language, using the framework there is .NetStandard 2.1, which makes it possible to develop cross-platform applications. Applications can be desktop, web, mobile. \
 *Currently mobile OS is not supported, but support is expected in the modest future.*
 
-## Build And Testing
+## Quick build and test
+Download the project from github
+Install [.NET CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
+In the folder with tests, execute the command **dotnet test**
+
+## Build And Testing wwith IDE
 [Microsoft VisualStudio 2019](https://visualstudio.microsoft.com/ru/downloads/) Windows \
 [JetBrain Rider 20.2](https://www.jetbrains.com/rider/)  Windows, Linux, MacOs
 
