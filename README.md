@@ -4,11 +4,11 @@ SDK is implemented in the C# language, using the framework there is .NetStandard
 *Currently mobile OS is not supported, but support is expected in the modest future.*
 
 ## Quick build and test
-Download the project from github
-Install [.NET CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1)
-In the folder with tests, execute the command **dotnet test**
+1. Download the project from github \
+2. Install [.NET CORE 3.1](https://dotnet.microsoft.com/download/dotnet-core/3.1) \
+3. In the folder with tests, execute the command **dotnet test**
 
-## Build And Testing wwith IDE
+## Build And Testing with IDE
 [Microsoft VisualStudio 2019](https://visualstudio.microsoft.com/ru/downloads/) Windows \
 [JetBrain Rider 20.2](https://www.jetbrains.com/rider/)  Windows, Linux, MacOs
 
