@@ -133,7 +133,7 @@ namespace Ton.Sdk.External
                 case PlatformID.Win32S:
                 case PlatformID.Win32Windows:
                 case PlatformID.WinCE:
-                    LibWindows.tc_destroy_context(context);
+                   // LibWindows.tc_destroy_context(context);
                     return;
                 default:
                     throw new NotSupportedException("OS not supported!");
