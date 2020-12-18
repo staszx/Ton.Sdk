@@ -63,5 +63,6 @@ namespace Ton.Sdk.External
     /// <param name="params_json">The parameters json.</param>
     /// <param name="response_type">Type of the response.</param>
     /// <param name="finished">if set to <c>true</c> [finished].</param>
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     internal delegate void tc_response_handler_t(uint request_id, tc_string_data_t params_json, uint response_type, bool finished);
 }

@@ -123,59 +123,83 @@
         /// <returns></returns>
         internal async Task<T> Request<T>(string functionName, object functionParams = null, ResponseHandler responseHandler = null)
         {
-            return await Task<T>.Factory.StartNew(() =>
+            var requestId = this.NextIndex();
+            var param = functionParams == null ? "" : SeralizeObject(functionParams);
+            var fName = new tc_string_data_t
             {
-                var requestId = this.NextIndex();
-                var param = functionParams == null ? "" : SeralizeObject(functionParams);
-                var fName = new tc_string_data_t
-                {
-                    Value = functionName
-                };
-                var fParams = new tc_string_data_t
-                {
-                    Value = param
-                };
-                var request = new Response(requestId, responseHandler);
-                this.AddResponse(request);
+                Value = functionName
+            };
+            var fParams = new tc_string_data_t
+            {
+                Value = param
+            };
+            var request = new Response(requestId, responseHandler);
+            this.AddResponse(request);
 
-                Lib.tc_request(this.context, fName, fParams, requestId, this.LibraryResponseHandler);
-
-                var time = DateTime.Now;
-                var response = this.GetResponse(requestId);
-                while (response == null && (DateTime.Now - time).TotalMilliseconds < this.requestTimeOut)
-                {
-                    response = this.GetResponse(requestId);
-                    Thread.Sleep(100);
-                }
-
-                if (response == null)
-                {
-                    throw new TimeoutException(string.Format("Time out of request, function name = {0}", functionName));
-                }
-
-                if (response.Finished)
-                {
-                    this.RemoveResponse(response);
-                }
-
-                switch (response.ResponseType)
+            var taskCompletionSource = new TaskCompletionSource<T>();
+            var h =   new tc_response_handler_t((requestId, paramJson, responseType, finished) =>
+            {
+                switch ((ResponseTypes)responseType)
                 {
                     case ResponseTypes.Success:
-                        if (response.ReturnValue == null)
-                        {
-                            return default;
-                        }
-
-                        return DeserializeObject<T>(response.ReturnValue);
+                        taskCompletionSource.SetResult(DeserializeObject<T>(paramJson.Value));
+                        break;
                     case ResponseTypes.Error:
-                        var error = DeserializeObject<ClientError>(response.ReturnValue);
-                        throw new TonClientInternalException(string.Format("Inner exception:\nCode:{0}, Message:{1}", error.Code, error.Message));
+                        var error = DeserializeObject<ClientError>(paramJson.Value);
+                        taskCompletionSource.SetException(new TonClientInternalException(string.Format("Inner exception:\nCode:{0}, Message:{1}", error.Code, error.Message)));
+                        break;
+                    case ResponseTypes.Nop:
+                        break ;
                     default:
-                        var handlerMsg = responseHandler == null ? "is null" : "is not null";
-                        throw new UnknownResponseTypeException(string.Format("ResponseType = {0} & ResponseHandler {1}", response.ResponseType
-                            , handlerMsg));
+                        if (responseHandler != null && responseType>100)
+                        {
+                            responseHandler.Invoke(paramJson.Value, (ResponseTypes)responseType);
+                        }
+                        else
+                        {
+                            throw new UnknownResponseTypeException(string.Format("ResponseType = {0} & ResponseHandler {1}", responseType, responseHandler));
+                        }
+                        break;
                 }
+
+                
             });
+
+            var time = DateTime.Now;
+            var response = this.GetResponse(requestId);
+            while (response == null && (DateTime.Now - time).TotalMilliseconds < this.requestTimeOut)
+            {
+                response = this.GetResponse(requestId);
+                Thread.Sleep(100);
+            }
+
+            if (response == null)
+            {
+                throw new TimeoutException(string.Format("Time out of request, function name = {0}", functionName));
+            }
+
+            if (response.Finished)
+            {
+                this.RemoveResponse(response);
+            }
+
+            switch (response.ResponseType)
+            {
+                case ResponseTypes.Success:
+                    if (response.ReturnValue == null)
+                    {
+                        return default;
+                    }
+
+                    return DeserializeObject<T>(response.ReturnValue);
+                case ResponseTypes.Error:
+                    var error = DeserializeObject<ClientError>(response.ReturnValue);
+                    throw new TonClientInternalException(string.Format("Inner exception:\nCode:{0}, Message:{1}", error.Code, error.Message));
+                default:
+                    var handlerMsg = responseHandler == null ? "is null" : "is not null";
+                    throw new UnknownResponseTypeException(string.Format("ResponseType = {0} & ResponseHandler {1}", response.ResponseType,
+                        handlerMsg));
+            }
         }
 
         /// <summary>
