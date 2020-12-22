@@ -93,46 +93,38 @@
             };
 
             var taskCompletionSource = new TaskCompletionSource<T>();
-           // var callbackHandle = default(GCHandle);
-            var handle = new tc_response_handler_t((requestId, paramJson, responseType, finished) =>
-            {
-                try
-                {
-                    switch ((ResponseTypes)responseType)
-                    {
-                        case ResponseTypes.Success:
-                            taskCompletionSource.SetResult(DeserializeObject<T>(paramJson.Value));
-                            break;
-                        case ResponseTypes.Error:
-                            var error = DeserializeObject<ClientError>(paramJson.Value);
-                            taskCompletionSource.SetException(new TonClientInternalException(string.Format("Inner exception:\nCode:{0}, Message:{1}", error.Code, error.Message)));
-                            break;
-                        case ResponseTypes.Nop:
-                            break;
-                        default:
-                            if (responseHandler != null && responseType > 100)
-                            {
-                                responseHandler.Invoke(paramJson.Value, (ResponseTypes)responseType);
-                            }
-                            else
-                            {
-                                throw new UnknownResponseTypeException(string.Format("ResponseType = {0} & ResponseHandler {1}", responseType, responseHandler));
-                            }
 
-                            break;
-                    }
-                }
-                finally
+            Lib.tc_request(this.context, fName, fParams, 1, (requestId, paramJson, responseType, finished) =>
+            {
+                switch ((ResponseTypes) responseType)
                 {
-                    //if (finished && callbackHandle.IsAllocated)
-                    //{
-                    //    callbackHandle.Free();
-                    //}
+                    case ResponseTypes.Success:
+                        taskCompletionSource.SetResult(DeserializeObject<T>(paramJson.Value));
+                        break;
+                    case ResponseTypes.Error:
+                        var error = DeserializeObject<ClientError>(paramJson.Value);
+                        taskCompletionSource.SetException(new TonClientInternalException(string.Format("Inner exception:\nCode:{0}, Message:{1}",
+                            error.Code, error.Message)));
+                        break;
+                    case ResponseTypes.Nop:
+                        break;
+                    default:
+                        if (responseHandler != null && responseType >= 100)
+                        {
+                            responseHandler.Invoke(paramJson.Value, (ResponseTypes) responseType);
+                            taskCompletionSource.SetResult(default);
+                        }
+                        else
+                        {
+                            throw new UnknownResponseTypeException(string.Format("ResponseType = {0} & ResponseHandler {1}", responseType,
+                                responseHandler));
+                        }
+
+                        break;
                 }
             });
 
-         //   callbackHandle = GCHandle.Alloc(handle);
-            Lib.tc_request(this.context, fName, fParams, 1, handle);
+
             return await taskCompletionSource.Task;
         }
 
