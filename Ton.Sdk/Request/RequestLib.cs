@@ -1,4 +1,5 @@
-﻿namespace Ton.Sdk.Request
+﻿//Changes: https://github.com/tonlabs/TON-SDK/blob/master/CHANGELOG.md
+namespace Ton.Sdk.Request
 {
     using System;
     using System.Collections.Generic;
