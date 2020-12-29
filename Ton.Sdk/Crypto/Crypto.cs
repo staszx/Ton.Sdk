@@ -365,6 +365,69 @@
             return await this.Request<ResultOfHDKeyPublicFromXPrv>("crypto.hdkey_public_from_xprv", paramsOfHDKeyPublicFromXPrv);
         }
 
+        /// <summary>
+        /// Chacha20s the specified parameters of chacha20.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#chacha20
+        /// </summary>
+        /// <param name="paramsOfChacha20">The parameters of chacha20.</param>
+        /// <returns></returns>
+        public async Task<ResultOfChacha20> Chacha20(ParamsOfChacha20 paramsOfChacha20)
+        {
+            return await this.Request<ResultOfChacha20>("crypto.chacha20", paramsOfChacha20);
+        }
+
+        /// <summary>
+        /// Registers the signing box.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#register_signing_box
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RegisteredSigningBox> RegisterSigningBox()
+        {
+            return await this.Request<RegisteredSigningBox>("crypto.register_signing_box");
+        }
+
+        /// <summary>
+        /// Gets the signed box.
+        /// </summary>
+        /// <param name="keyPair">The key pair.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#get_signing_box
+        /// <returns></returns>
+        public async Task<RegisteredSigningBox> GetSignedBox(KeyPair keyPair)
+        {
+            return await this.Request<RegisteredSigningBox>("crypto.get_signing_box", keyPair);
+        }
+
+        /// <summary>
+        /// Signings the box get public key.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#signing_box_get_public_key
+        /// </summary>
+        /// <param name="registeredSigningBox">The registered signing box.</param>
+        /// <returns></returns>
+        public async Task<ResultOfSigningBoxGetPublicKey> SigningBoxGetPublicKey(RegisteredSigningBox registeredSigningBox)
+        {
+            return await this.Request<ResultOfSigningBoxGetPublicKey>("crypto.signing_box_get_public_key", registeredSigningBox);
+        }
+
+        /// <summary>
+        /// Signings the box sign.
+        /// </summary>
+        /// <param name="paramsOfSigningBoxSign">The parameters of signing box sign.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#signing_box_sign
+        /// <returns></returns>
+        public async Task<ResultOfSigningBoxSign> SigningBoxSign(ParamsOfSigningBoxSign paramsOfSigningBoxSign)
+        {
+            return await this.Request<ResultOfSigningBoxSign>("crypto.signing_box_sign", paramsOfSigningBoxSign);
+        }
+
+        /// <summary>
+        /// Removes the signing box.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#remove_signing_box
+        /// </summary>
+        /// <param name="registeredSigningBox">The registered signing box.</param>
+        public async Task RemoveSigningBox(RegisteredSigningBox registeredSigningBox)
+        {
+             await this.Request<object>("crypto.remove_signing_box", registeredSigningBox);
+        }
         #endregion
     }
 }

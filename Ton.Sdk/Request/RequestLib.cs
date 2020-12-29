@@ -107,10 +107,10 @@ namespace Ton.Sdk.Request
             {
                 Value = config
             };
-            var jsonPtr = Lib.tc_create_context(cfg);
-            var json = Lib.tc_read_string(jsonPtr);
+            var jsonPtr = Lib.TcCreateContext(cfg);
+            var json = Lib.TcReadString(jsonPtr);
             var value = JObject.Parse(json.Value)["result"].Value<uint>();
-            Lib.tc_destroy_string(jsonPtr);
+            Lib.TcDestroyString(jsonPtr);
             return value;
         }
 
@@ -139,7 +139,7 @@ namespace Ton.Sdk.Request
                 var request = new Response(requestId, responseHandler);
                 this.AddResponse(request);
 
-                Lib.tc_request(this.context, fName, fParams, requestId, this.LibraryResponseHandler);
+                Lib.TcRequest(this.context, fName, fParams, requestId, this.LibraryResponseHandler);
 
                 var time = DateTime.Now;
                 var response = this.GetResponse(requestId);
@@ -286,7 +286,7 @@ namespace Ton.Sdk.Request
         /// </summary>
         public void Dispose()
         {
-            Lib.tc_destroy_context(this.context);
+            Lib.TcDestroyContext(this.context);
         }
     }
 

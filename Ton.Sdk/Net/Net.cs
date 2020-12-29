@@ -66,6 +66,54 @@
             return await this.Request<ResultOfSubscribeCollection>("net.subscribe_collection", paramsOfSubscribeCollection, responseHandler);
         }
 
+        /// <summary>
+        /// Suspends this instance.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#suspend
+        /// </summary>
+        public async Task Suspend()
+        {
+             await this.Request<string>("net.suspend");
+        }
+
+        /// <summary>
+        /// Resumes this instance.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#resume
+        /// </summary>
+        public async Task Resume()
+        {
+            await this.Request<string>("net.resume");
+        }
+
+        /// <summary>
+        /// Finds the last shard block.
+        /// </summary>
+        /// <param name="paramsOfFindLastShardBlock">The parameters of find last shard block.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#find_last_shard_block
+        /// <returns></returns>
+        public async Task<ResultOfFindLastShardBlock> FindLastShardBlock(ParamsOfFindLastShardBlock paramsOfFindLastShardBlock)
+        {
+           return await this.Request<ResultOfFindLastShardBlock>("net.find_last_shard_block", paramsOfFindLastShardBlock);
+        }
+
+        /// <summary>
+        /// Fetches the end points.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#fetch_endpoints
+        /// </summary>
+        /// <returns></returns>
+        public async Task<EndpointsSet> FetchEndPoints()
+        {
+            return await this.Request<EndpointsSet>("net.fetch_endpoints");
+        }
+
+        /// <summary>
+        /// Sets the end points.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#set_endpoints
+        /// </summary>
+        /// <param name="endpointsSet">The endpoints set.</param>
+        public async Task SetEndPoints(EndpointsSet endpointsSet)
+        {
+             await this.Request<object>("net.set_endpoints", endpointsSet);
+        }
         #endregion
     }
 }

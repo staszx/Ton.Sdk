@@ -24,7 +24,8 @@ namespace Ton.Sdk.Debot
         [JsonProperty("attributes")] 
         public string Attributes { get; set; }
 
-        [JsonProperty("misc")] public string Misc { get; set; }
+        [JsonProperty("misc")] 
+        public string Misc { get; set; }
 
         #endregion
     }
