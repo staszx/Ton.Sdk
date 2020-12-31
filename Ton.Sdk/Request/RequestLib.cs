@@ -1,4 +1,5 @@
-﻿namespace Ton.Sdk.Request
+﻿//Changes: https://github.com/tonlabs/TON-SDK/blob/master/CHANGELOG.md
+namespace Ton.Sdk.Request
 {
     using System;
     using System.Collections.Generic;
@@ -74,7 +75,7 @@
         /// <param name="paramJson">The parameter json.</param>
         /// <param name="responseType">Type of the response.</param>
         /// <param name="finished">if set to <c>true</c> [finished].</param>
-        public void LibraryResponseHandler(uint requestId, tc_string_data_t paramJson, uint responseType, bool finished)
+        public void  LibraryResponseHandler(uint requestId, tc_string_data_t paramJson, uint responseType, bool finished)
         {
             Response response;
             if (responseType >= 100)
@@ -83,6 +84,32 @@
                 response?.ResponseHandler?.Invoke(paramJson.Value, (ResponseTypes) responseType);
                 return;
             }
+            else if ((ResponseTypes)responseType == ResponseTypes.ResponseAppRequest)
+            {
+                try
+                {
+                    var p = new ParamsOfResolveAppRequest()
+                    {
+                        AppRequestId = requestId,
+                        Result = new AppRequestResult() { Type = "ok", Result = paramJson.Value }
+
+                    };
+
+                    this.ResolveAppRequest(SeralizeObject(p)).Wait();
+                }
+                catch (Exception e)
+                {
+                    var p = new ParamsOfResolveAppRequest()
+                    {
+                        AppRequestId = requestId,
+                        Result = new AppRequestResult() { Type = "error", Text = e.Message }
+
+                    };
+
+                    this.ResolveAppRequest(SeralizeObject(p)).Wait();
+                }
+            }
+
 
             response = this.GetRequest(requestId);
             if (response == null)
@@ -106,10 +133,10 @@
             {
                 Value = config
             };
-            var jsonPtr = Lib.tc_create_context(cfg);
-            var json = Lib.tc_read_string(jsonPtr);
+            var jsonPtr = Lib.TcCreateContext(cfg);
+            var json = Lib.TcReadString(jsonPtr);
             var value = JObject.Parse(json.Value)["result"].Value<uint>();
-            Lib.tc_destroy_string(jsonPtr);
+            Lib.TcDestroyString(jsonPtr);
             return value;
         }
 
@@ -138,7 +165,7 @@
                 var request = new Response(requestId, responseHandler);
                 this.AddResponse(request);
 
-                Lib.tc_request(this.context, fName, fParams, requestId, this.LibraryResponseHandler);
+                Lib.TcRequest(this.context, fName, fParams, requestId, this.LibraryResponseHandler);
 
                 var time = DateTime.Now;
                 var response = this.GetResponse(requestId);
@@ -253,6 +280,11 @@
             }
         }
 
+        public async Task ResolveAppRequest(string par)
+        {
+            await this.Request<object>("client.resolve_app_request", par);
+        }
+
         /// <summary>
         ///     Gets the response.
         /// </summary>
@@ -285,7 +317,7 @@
         /// </summary>
         public void Dispose()
         {
-            Lib.tc_destroy_context(this.context);
+            Lib.TcDestroyContext(this.context);
         }
     }
 

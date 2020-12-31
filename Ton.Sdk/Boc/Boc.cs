@@ -1,6 +1,8 @@
 ﻿namespace Ton.Sdk.Boc
 {
     using System.Threading.Tasks;
+    using BOC;
+    using Crypto;
 
     /// <summary>
     ///     The boc
@@ -78,6 +80,37 @@
             return await this.Request<ResultOfGetBlockchainConfig>("boc.get_blockchain_config", paramsOfGetBlockchainConfig);
         }
 
+        /// <summary>
+        /// Gets the boc hash.
+        /// </summary>
+        /// <param name="paramsOfGetBocHash">The parameters of get boc hash.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_boc.md#get_boc_hash
+        /// <returns>ResultOfGetBocHash</returns>
+        public async Task<ResultOfGetBocHash> GetBocHash(ParamsOfGetBocHash paramsOfGetBocHash)
+        {
+            return await this.Request<ResultOfGetBocHash>("boc.get_boc_hash", paramsOfGetBocHash);
+        }
+
+        /// <summary>
+        /// Gets the code from TVC.
+        /// </summary>
+        /// <param name="paramsOfGetCodeFromTvc">The parameters of get code from TVC.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_boc.md#get_code_from_tvc
+        /// <returns>ResultOfGetCodeFromTvc</returns>
+        public async Task<ResultOfGetCodeFromTvc> GetCodeFromTvc(ParamsOfGetCodeFromTvc paramsOfGetCodeFromTvc)
+        {
+            return await this.Request<ResultOfGetCodeFromTvc>("boc.get_code_from_tvc", paramsOfGetCodeFromTvc);
+        }
+
+        /// <summary>
+        /// Parses the shardstate.
+        /// </summary>
+        /// <param name="paramsOfParseShardstate">The parameters of parse shardstate.</param>
+        /// <returns></returns>
+        public async Task<ResultOfParse> ParseShardstate(ParamsOfParseShardstate paramsOfParseShardstate)
+        {
+            return await this.Request<ResultOfParse>("boc.parse_shardstate", paramsOfParseShardstate);
+        }
         #endregion
     }
 }

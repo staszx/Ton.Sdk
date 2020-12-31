@@ -73,6 +73,24 @@ namespace Ton.Sdk.Client
         [JsonProperty("access_key")]
         public string AccessKey { get; set; }
 
+        /// <summary>
+        /// Gets or sets the end points.
+        /// </summary>
+        /// <value>
+        /// The end points.
+        /// </value>
+        [JsonProperty("end_points")]
+        public string[] EndPoints { get; set; }
+
+        /// <summary>
+        /// Gets or sets the reconnect time out.
+        /// </summary>
+        /// <value>
+        /// The reconnect time out.
+        /// </value>
+        [JsonProperty("reconnect_timeout")]
+        public int ReconnectTimeout { get; set; }
+
         #endregion
     }
 }

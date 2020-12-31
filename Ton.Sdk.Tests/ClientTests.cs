@@ -54,40 +54,6 @@ namespace Ton.Sdk.Tests
             Assert.AreEqual(expectedBuildNumber, buildNumber);
         }
 
-        /// <summary>
-        /// Multithreadings the test.
-        /// </summary>
-        [Test]
-        public void MultithreadingTest()
-        {
-            using var client = new TonClient(this.ClientConfig);
-            var param = new ParamsOfQueryCollection
-            {
-                Collection = "messages",
-                Result = "id",
-                Limit = 1
-            };
-
-            List<Task> tasks = new List<Task>();
-            int threads = Process.GetCurrentProcess().Threads.Count;
-            int maxThreads = 0;
-            for (int i = 0; i < 10; i++)
-            {
-                tasks.Add(client.Net.QueryCollection(param));
-                int count = Process.GetCurrentProcess().Threads.Count;
-                if ( count > maxThreads)
-                {
-                    maxThreads = count;
-                }
-            }
-
-            Task.WaitAll(tasks.ToArray());
-
-            Console.WriteLine(threads);
-            Console.WriteLine(maxThreads);
-            Assert.Greater(maxThreads, threads);
-        }
-
         #endregion
     }
 }

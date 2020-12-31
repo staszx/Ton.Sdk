@@ -13,164 +13,95 @@ namespace Ton.Sdk.External
     /// </summary>
     internal static class Lib
     {
-        #region Methods
+        #region Constructors
 
-        /// <summary>
-        ///     Gets the operating system.
-        /// </summary>
-        /// <returns></returns>
-        /// <exception cref="Exception">Cannot determine operating system!</exception>
-        public static PlatformID GetOperatingSystem()
+        static Lib()
         {
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                return PlatformID.MacOSX;
+                TcReadString = LibMac.tc_read_string;
+                TcDestroyString = LibMac.tc_destroy_string;
+                TcCreateContext = LibMac.tc_create_context;
+                TcDestroyContext = LibMac.tc_destroy_context;
+                TcRequest = LibMac.tc_request;
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                return PlatformID.Unix;
+                TcReadString = LibLinux.tc_read_string;
+                TcDestroyString = LibLinux.tc_destroy_string;
+                TcCreateContext = LibLinux.tc_create_context;
+                TcDestroyContext = LibLinux.tc_destroy_context;
+                TcRequest = LibLinux.tc_request;
             }
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                return PlatformID.Win32NT;
-            }
-
-            throw new Exception("Cannot determine operating system!");
-        }
-
-        /// <summary>
-        ///     Tcs the read string.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        /// <returns></returns>
-        internal static tc_string_data_t tc_read_string(IntPtr text)
-        {
-            var platform = GetOperatingSystem();
-            switch (platform)
-            {
-                case PlatformID.MacOSX:
-                    return LibMac.tc_read_string(text);
-                case PlatformID.Unix:
-                    return LibLinux.tc_read_string(text);
-                case PlatformID.Win32NT:
-                case PlatformID.Win32S:
-                case PlatformID.Win32Windows:
-                case PlatformID.WinCE:
-                    return LibWindows.tc_read_string(text);
-                default:
-                    throw new NotSupportedException("OS not supported!");
-            }
-        }
-
-        /// <summary>
-        ///     Tcs the destroy string.
-        /// </summary>
-        /// <param name="text">The text.</param>
-        internal static void tc_destroy_string(IntPtr text)
-        {
-            var platform = GetOperatingSystem();
-            switch (platform)
-            {
-                case PlatformID.MacOSX:
-                    LibMac.tc_destroy_string(text);
-                    return;
-                case PlatformID.Unix:
-                    LibLinux.tc_destroy_string(text);
-                    return;
-                case PlatformID.Win32NT:
-                case PlatformID.Win32S:
-                case PlatformID.Win32Windows:
-                case PlatformID.WinCE:
-                    LibWindows.tc_destroy_string(text);
-                    return;
-                default:
-                    throw new NotSupportedException("OS not supported!");
-            }
-        }
-
-        /// <summary>
-        ///     Tcs the create context.
-        /// </summary>
-        /// <param name="config">The configuration.</param>
-        /// <returns></returns>
-        internal static IntPtr tc_create_context(tc_string_data_t config)
-        {
-            var platform = GetOperatingSystem();
-            switch (platform)
-            {
-                case PlatformID.MacOSX:
-                    return LibMac.tc_create_context(config);
-                case PlatformID.Unix:
-                    return LibLinux.tc_create_context(config);
-                case PlatformID.Win32NT:
-                case PlatformID.Win32S:
-                case PlatformID.Win32Windows:
-                case PlatformID.WinCE:
-                    return LibWindows.tc_create_context(config);
-                default:
-                    throw new NotSupportedException("OS not supported!");
-            }
-        }
-
-        /// <summary>
-        ///     Tcs the destroy context.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        internal static void tc_destroy_context(uint context)
-        {
-            var platform = GetOperatingSystem();
-            switch (platform)
-            {
-                case PlatformID.MacOSX:
-                    LibMac.tc_destroy_context(context);
-                    return;
-                case PlatformID.Unix:
-                    LibLinux.tc_destroy_context(context);
-                    return;
-                case PlatformID.Win32NT:
-                case PlatformID.Win32S:
-                case PlatformID.Win32Windows:
-                case PlatformID.WinCE:
-                    LibWindows.tc_destroy_context(context);
-                    return;
-                default:
-                    throw new NotSupportedException("OS not supported!");
-            }
-        }
-
-        /// <summary>
-        ///     Tcs the request.
-        /// </summary>
-        /// <param name="context">The context.</param>
-        /// <param name="function_name">Name of the function.</param>
-        /// <param name="function_params_json">The function parameters json.</param>
-        /// <param name="request_id">The request identifier.</param>
-        /// <param name="response_handler">The response handler.</param>
-        internal static void tc_request(uint context, tc_string_data_t function_name, tc_string_data_t function_params_json, uint request_id,
-            tc_response_handler_t response_handler)
-        {
-            var platform = GetOperatingSystem();
-            switch (platform)
-            {
-                case PlatformID.MacOSX:
-                    LibMac.tc_request(context, function_name, function_params_json, request_id, response_handler);
-                    return;
-                case PlatformID.Unix:
-                    LibLinux.tc_request(context, function_name, function_params_json, request_id, response_handler);
-                    return;
-                case PlatformID.Win32NT:
-                case PlatformID.Win32S:
-                case PlatformID.Win32Windows:
-                case PlatformID.WinCE:
-                    LibWindows.tc_request(context, function_name, function_params_json, request_id, response_handler);
-                    return;
-                default:
-                    throw new NotSupportedException("OS not supported!");
+                TcReadString = LibWindows.tc_read_string;
+                TcDestroyString = LibWindows.tc_destroy_string;
+                TcCreateContext = LibWindows.tc_create_context;
+                TcDestroyContext = LibWindows.tc_destroy_context;
+                TcRequest = LibWindows.tc_request;
             }
         }
 
         #endregion
+
+        #region Properties
+
+        /// <summary>
+        ///     Gets or sets the tc string data t.
+        /// </summary>
+        /// <value>
+        ///     The tc string data t.
+        /// </value>
+        internal static ReadString TcReadString { get; }
+
+        /// <summary>
+        ///     Tcs the destroy string.
+        /// </summary>
+        /// <value>
+        ///     The tc destroy string.
+        /// </value>
+        internal static DestroyString TcDestroyString { get; }
+
+        /// <summary>
+        ///     Gets the tc create context.
+        /// </summary>
+        /// <value>
+        ///     The tc create context.
+        /// </value>
+        internal static CreateContext TcCreateContext { get; }
+
+
+        /// <summary>
+        /// Gets the tc destroy context.
+        /// </summary>
+        /// <value>
+        /// The tc destroy context.
+        /// </value>
+        internal static DestroyContext TcDestroyContext { get; }
+
+
+        /// <summary>
+        ///     Gets or sets the tc request.
+        /// </summary>
+        /// <value>
+        ///     The tc request.
+        /// </value>
+        internal static RequestDlg TcRequest { get; }
+
+        #endregion
+
+        internal delegate tc_string_data_t ReadString(IntPtr text);
+
+        internal delegate void DestroyString(IntPtr text);
+
+        internal delegate IntPtr CreateContext(tc_string_data_t config);
+
+        internal delegate void DestroyContext(uint context);
+
+        internal delegate void RequestDlg(uint context, tc_string_data_t functionName, tc_string_data_t functionParamsJson, uint requestId,
+            tc_response_handler_t responseHandler);
     }
 }
