@@ -37,7 +37,7 @@
         /// <summary>
         ///     The library version
         /// </summary>
-        public const string LibVersion = "1.5.0";
+        public const string LibVersion = "1.5.2";
 
         #endregion
 

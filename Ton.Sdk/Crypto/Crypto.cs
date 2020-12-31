@@ -1,6 +1,7 @@
 ﻿namespace Ton.Sdk.Crypto
 {
     using System.Threading.Tasks;
+    using Request;
 
     /// <summary>
     ///     The Crypto module
@@ -381,9 +382,9 @@
         /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#register_signing_box
         /// </summary>
         /// <returns></returns>
-        public async Task<RegisteredSigningBox> RegisterSigningBox()
+        public async Task<RegisteredSigningBox> RegisterSigningBox(ResponseHandler responseHandler)
         {
-            return await this.Request<RegisteredSigningBox>("crypto.register_signing_box");
+            return await this.Request<RegisteredSigningBox>("crypto.register_signing_box", null, responseHandler);
         }
 
         /// <summary>

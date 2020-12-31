@@ -53,6 +53,16 @@
             return await this.Request<ResultOfBuildInfo>("client.build_info");
         }
 
+        /// <summary>
+        /// Resolves the application request.
+        /// </summary>
+        /// <param name="paramsOfResolveAppRequest">The parameters of resolve application request.</param>
+        /// <returns></returns>
+        public async Task ResolveAppRequest(ParamsOfResolveAppRequest paramsOfResolveAppRequest)
+        {
+             await this.Request<object>("client.resolve_app_request", paramsOfResolveAppRequest);
+        }
+
         #endregion
     }
 }

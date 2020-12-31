@@ -75,7 +75,7 @@ namespace Ton.Sdk.Request
         /// <param name="paramJson">The parameter json.</param>
         /// <param name="responseType">Type of the response.</param>
         /// <param name="finished">if set to <c>true</c> [finished].</param>
-        public void LibraryResponseHandler(uint requestId, tc_string_data_t paramJson, uint responseType, bool finished)
+        public void  LibraryResponseHandler(uint requestId, tc_string_data_t paramJson, uint responseType, bool finished)
         {
             Response response;
             if (responseType >= 100)
@@ -84,6 +84,32 @@ namespace Ton.Sdk.Request
                 response?.ResponseHandler?.Invoke(paramJson.Value, (ResponseTypes) responseType);
                 return;
             }
+            else if ((ResponseTypes)responseType == ResponseTypes.ResponseAppRequest)
+            {
+                try
+                {
+                    var p = new ParamsOfResolveAppRequest()
+                    {
+                        AppRequestId = requestId,
+                        Result = new AppRequestResult() { Type = "ok", Result = paramJson.Value }
+
+                    };
+
+                    this.ResolveAppRequest(SeralizeObject(p)).Wait();
+                }
+                catch (Exception e)
+                {
+                    var p = new ParamsOfResolveAppRequest()
+                    {
+                        AppRequestId = requestId,
+                        Result = new AppRequestResult() { Type = "error", Text = e.Message }
+
+                    };
+
+                    this.ResolveAppRequest(SeralizeObject(p)).Wait();
+                }
+            }
+
 
             response = this.GetRequest(requestId);
             if (response == null)
@@ -252,6 +278,11 @@ namespace Ton.Sdk.Request
 
                 return this.responses.FirstOrDefault(r => r.RequestId == requestId && r.ResponseType != ResponseTypes.None);
             }
+        }
+
+        public async Task ResolveAppRequest(string par)
+        {
+            await this.Request<object>("client.resolve_app_request", par);
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿namespace Ton.Sdk.Debot
 {
     using System.Threading.Tasks;
+    using Request;
 
     /// <summary>
     ///     The debot module
@@ -24,25 +25,27 @@
         #region Methods
 
         /// <summary>
-        ///     Starts the specified parameters of start.
+        /// Starts the specified parameters of start.
         /// </summary>
         /// <param name="paramsOfStart">The parameters of start.</param>
-        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_debot.md#start
+        /// <param name="responseHandler">The response handler.</param>
         /// <returns></returns>
-        public async Task<RegisteredDebot> Start(ParamsOfStart paramsOfStart)
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_debot.md#start
+        public async Task<RegisteredDebot> Start(ParamsOfStart paramsOfStart,ResponseHandler responseHandler)
         {
-            return await this.Request<RegisteredDebot>("debot.start", paramsOfStart);
+            return await this.Request<RegisteredDebot>("debot.start", paramsOfStart, responseHandler);
         }
 
         /// <summary>
-        ///     Fetches the specified parameters of fetch.
+        /// Fetches the specified parameters of fetch.
         /// </summary>
         /// <param name="paramsOfFetch">The parameters of fetch.</param>
-        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_debot.md#fetch
+        /// <param name="responseHandler">The response handler.</param>
         /// <returns></returns>
-        public async Task<RegisteredDebot> Fetch(ParamsOfFetch paramsOfFetch)
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_debot.md#fetch
+        public async Task<RegisteredDebot> Fetch(ParamsOfFetch paramsOfFetch, ResponseHandler responseHandler)
         {
-            return await this.Request<RegisteredDebot>("debot.fetch", paramsOfFetch);
+            return await this.Request<RegisteredDebot>("debot.fetch", paramsOfFetch, responseHandler);
         }
 
         /// <summary>

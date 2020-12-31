@@ -26,6 +26,11 @@
         Nop = 2,
 
         /// <summary>
+        /// The response application request
+        /// </summary>
+        ResponseAppRequest = 3,
+
+        /// <summary>
         ///     The  response custom
         /// </summary>
         Custom = 100
