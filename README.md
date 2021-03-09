@@ -30,7 +30,7 @@ https://github.com/tonlabs/TON-SDK
  - **MacOs x64**  (tested in the macOS Catalina 10.15.6, JetBrains Rider 20.2)
 
 ## Nuget
-**Install-Package Net.Ton.Sdk -Version 1.5.2**
+**Install-Package Net.Ton.Sdk -Version 1.9.0**
 
  ## Code Example
  ```csharp
