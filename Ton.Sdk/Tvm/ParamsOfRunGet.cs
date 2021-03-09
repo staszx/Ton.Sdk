@@ -47,6 +47,16 @@ namespace Ton.Sdk.Tvm
         [JsonProperty("execution_options")]
         public ExecutionOptions ExecutionOptions { get; set; }
 
+        /// <summary>
+        /// Gets or sets the tuple list as array.
+        /// </summary>
+        /// <value>
+        /// The tuple list as array.
+        /// </value>
+
+        [JsonProperty("tuple_list_as_array")]
+        public bool? TupleListAsArray { get; set; }
+
         #endregion
     }
 }

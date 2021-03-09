@@ -111,6 +111,35 @@
         {
             return await this.Request<ResultOfParse>("boc.parse_shardstate", paramsOfParseShardstate);
         }
+
+        /// <summary>
+        /// Caches the get.
+        /// </summary>
+        /// <param name="paramsOfBocCacheGet">The parameters of boc cache get.</param>
+        /// <returns></returns>
+        public async Task<ResultOfBocCacheGet> CacheGet(ParamsOfBocCacheGet paramsOfBocCacheGet)
+        {
+            return await this.Request<ResultOfBocCacheGet>("boc.cache_get", paramsOfBocCacheGet);
+        }
+
+        /// <summary>
+        /// Caches the set.
+        /// </summary>
+        /// <param name="paramsOfBocCacheSet">The parameters of boc cache set.</param>
+        /// <returns></returns>
+        public async Task<ResultOfBocCacheSet> CacheSet(ParamsOfBocCacheSet paramsOfBocCacheSet)
+        {
+            return await this.Request<ResultOfBocCacheSet>("boc.cache_set", paramsOfBocCacheSet);
+        }
+
+        /// <summary>
+        /// Caches the unpin.
+        /// </summary>
+        /// <param name="paramsOfBocCacheUnpin">The parameters of boc cache unpin.</param>
+        public async Task CacheUnpin(ParamsOfBocCacheUnpin paramsOfBocCacheUnpin)
+        {
+             await this.Request<string>("boc.cache_unpin", paramsOfBocCacheUnpin);
+        }
         #endregion
     }
 }
