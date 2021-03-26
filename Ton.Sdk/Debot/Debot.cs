@@ -68,6 +68,16 @@
             await this.Request<string>("debot.remove", registeredDebot);
         }
 
+        /// <summary>
+        /// Removes the specified registered debot.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_debot.md#send
+        /// </summary>
+        /// <param name="paramsOfSend">The parameters of send.</param>
+        public async Task Send(ParamsOfSend paramsOfSend)
+        {
+            await this.Request<string>("debot.send", paramsOfSend);
+        }
+
         #endregion
     }
 }

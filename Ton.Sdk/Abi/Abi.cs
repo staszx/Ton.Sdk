@@ -101,6 +101,17 @@
             return await this.Request<ResultOfEncodeAccount>("abi.encode_account", paramsOfEncodeAccount);
         }
 
+        /// <summary>
+        ///     Encodes the message.
+        /// </summary>
+        /// <param name="paramsOfEncodeMessage">The parameters of encode message.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#encode_internal_message
+        /// <returns>ResultOfEncodeMessage</returns>
+        public async Task<ResultOfEncodeInternalMessage> EncodeInternalMessage(ParamsOfEncodeInternalMessage paramsOfEncodeInternalMessage)
+        {
+            return await this.Request<ResultOfEncodeInternalMessage>("abi.encode_internal_message", paramsOfEncodeInternalMessage);
+        }
+
         #endregion
     }
 }

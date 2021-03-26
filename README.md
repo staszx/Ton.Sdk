@@ -1,5 +1,5 @@
-# TON.SDK.NET supported version 1.9.0
-[TON SDK](https://github.com/tonlabs/TON-SDK) Client library .NET bindings (version 1.9.0)
+# TON.SDK.NET supported version 1.11.2
+[TON SDK](https://github.com/tonlabs/TON-SDK) Client library .NET bindings (version 1.11.2)
 SDK is implemented in the C# language, using the framework there is .NetStandard 2.1, which makes it possible to develop cross-platform applications. Applications can be desktop, web, mobile. \
 *Currently mobile OS is not supported, but support is expected in the modest future.*
 
@@ -30,7 +30,7 @@ https://github.com/tonlabs/TON-SDK
  - **MacOs x64**  (tested in the macOS Catalina 10.15.6, JetBrains Rider 20.2)
 
 ## Nuget
-**Install-Package Net.Ton.Sdk -Version 1.9.0**
+**Install-Package Net.Ton.Sdk**
 
  ## Code Example
  ```csharp

@@ -1,5 +1,6 @@
 ﻿namespace Ton.Sdk.Tests
 {
+    using System;
     using System.Threading.Tasks;
     using Client;
     using NUnit.Framework;
@@ -56,6 +57,20 @@
             paramsOfConvertAddress.OutputFormat.Type = AddressStringFormatType.Hex;
             converted = await client.Utils.ConvertAddress(paramsOfConvertAddress);
             this.Check(hex, converted.Address, "Hex2");
+        }
+
+        [Test]
+        public async Task CalcStorageFeeTest()
+        {
+            using var client = new TonClient(new ClientConfig());
+            var input = new ParamsOfCalcStorageFee
+            {
+                Account = TonClientTestCommon.Account,
+                Period = 1000
+            };
+
+            var result = await client.Utils.CalcStorageFee(input);
+            Assert.AreEqual(result.Fee, "330");
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 namespace Ton.Sdk.Boc
 {
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
 
     public class ParamsOfBocCacheSet
     {
@@ -10,6 +11,7 @@ namespace Ton.Sdk.Boc
         public string Boc { get; set; }
 
         [JsonProperty("cache_type")]
+        [JsonConverter(typeof(StringEnumConverter))]
         public BocCacheType CacheType { get; set; }
 
         #endregion

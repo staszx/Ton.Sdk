@@ -140,6 +140,16 @@
         {
              await this.Request<string>("boc.cache_unpin", paramsOfBocCacheUnpin);
         }
+
+        /// <summary>
+        /// Encodes the boc.
+        /// </summary>
+        /// <param name="paramsOfEncodeBoc">The parameters of encode boc.</param>
+        /// <returns></returns>
+        public async Task<ResultOfEncodeBoc> EncodeBoc(ParamsOfEncodeBoc paramsOfEncodeBoc)
+        {
+            return await this.Request<ResultOfEncodeBoc>("boc.encode_boc", paramsOfEncodeBoc);
+        }
         #endregion
     }
 }

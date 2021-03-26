@@ -1,12 +1,8 @@
 namespace Ton.Sdk.Tests
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Diagnostics;
     using System.Linq;
     using System.Threading.Tasks;
     using Client;
-    using Net;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
 
@@ -44,7 +40,8 @@ namespace Ton.Sdk.Tests
         /// <summary>
         ///     Gets the build information test.
         /// </summary>
-        [Test, Ignore("not work in v1.1.1")]
+        [Test]
+        [Ignore("not work in v1.1.1")]
         public async Task GetBuildInfoTest()
         {
             var expectedBuildNumber = 788;
