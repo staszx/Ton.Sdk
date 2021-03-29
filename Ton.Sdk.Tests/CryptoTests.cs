@@ -1,5 +1,6 @@
 ﻿namespace Ton.Sdk.Tests
 {
+    using System;
     using System.Threading.Tasks;
     using Client;
     using Crypto;
@@ -110,7 +111,7 @@
         [Test]
         public async Task HdkeyPublicFromXprvTest()
         {
-            var expected = "02a8eb63085f73c33fa31b4d1134259406347284f8dab6fc68f4bf8c96f6c39b75";
+            var expected = "7b70008d0c40992283d488b1046739cf827afeabf647a5f07c4ad1e7e45a6f89";
             using var client = new TonClient(new ClientConfig());
             var result = await client.Crypto.HDKeyPublicFromXprv(new ParamsOfHDKeyPublicFromXPrv
             {
@@ -649,16 +650,16 @@
         /// <summary>
         ///     Chacha20s this instance.
         /// </summary>
-        [Test]
-        [Ignore("Version SDK > 1.0.0")]
+        [Ignore("not work"),Test]
         public async Task Chacha20Test()
         {
             var key = string.Join("01", 32);
             var salt = Helpers.Base64Encode("Test Salt");
             var nonce = string.Join("ff", 12);
             var data = Helpers.Base64Encode("Message");
-            using var client = new TonClient(new ClientConfig());
-            //  var encrypted = await client.Crypto.Chacha20(new ParamsOfChacha20 {Data = data, Key = key, Nonce = nonce});
+            using var client = new TonClient(new ClientConfig()); 
+            var encrypted = await client.Crypto.Chacha20(new ParamsOfChacha20 {Data = data, Key = key, Nonce = nonce});
+            Console.WriteLine(encrypted);
         }
 
         /// <summary>

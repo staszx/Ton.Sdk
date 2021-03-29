@@ -37,20 +37,6 @@ namespace Ton.Sdk.Tests
             Assert.Greater(modules.Count(), 0);
         }
 
-        /// <summary>
-        ///     Gets the build information test.
-        /// </summary>
-        [Test]
-        [Ignore("not work in v1.1.1")]
-        public async Task GetBuildInfoTest()
-        {
-            var expectedBuildNumber = 788;
-            using var client = new TonClient(new ClientConfig());
-            var result = await client.Client.BuildInfo();
-            var buildNumber = result.BuildInfo["buildNumber"].Value<int>();
-            Assert.AreEqual(expectedBuildNumber, buildNumber);
-        }
-
         #endregion
     }
 }

@@ -1,6 +1,7 @@
 namespace Ton.Sdk.Tvm
 {
     using Abi;
+    using Boc;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -56,6 +57,24 @@ namespace Ton.Sdk.Tvm
         /// </value>
         [JsonProperty("skip_transaction_check")]
         public bool SkipTransactionCheck { get; set; }
+
+        /// <summary>
+        /// Gets or sets the boc cache.
+        /// </summary>
+        /// <value>
+        /// The boc cache.
+        /// </value>
+        [JsonProperty("boc_cache")]
+        public BocCacheType BocCache { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [return updated account].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [return updated account]; otherwise, <c>false</c>.
+        /// </value>
+        [JsonProperty("return_updated_account")]
+        public bool ReturnUpdatedAccount { get; set; }
 
         #endregion
     }
