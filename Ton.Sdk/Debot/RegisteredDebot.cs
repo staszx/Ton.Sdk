@@ -6,8 +6,14 @@ namespace Ton.Sdk.Debot
     {
         #region Properties
 
-        [JsonProperty("debot_handle")] 
+        [JsonProperty("debot_handle")]
         public int DebotHandle { get; set; }
+
+        [JsonProperty("debot_abi")]
+        public string DebotAbi { get; set; }
+
+        [JsonProperty("info")]
+        public DebotInfo Info { get; set; }
 
         #endregion
     }

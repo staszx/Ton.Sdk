@@ -45,6 +45,28 @@
             return await this.Request<ResultOfCalcStorageFee>("utils.calc_storage_fee", paramsOfCalcStorageFee);
         }
 
+        /// <summary>
+        /// Calculates the storage fee.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_utils.md#compress_zstd
+        /// </summary>
+        /// <param name="paramsOfCompressZstd">The parameters of compress ZSTD.</param>
+        /// <returns></returns>
+        public async Task<ResultOfCompressZstd> CompressZtd(ParamsOfCompressZstd paramsOfCompressZstd)
+        {
+            return await this.Request<ResultOfCompressZstd>("utils.compress_zstd", paramsOfCompressZstd);
+        }
+
+        /// <summary>
+        /// Decompresses the ZTD.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_utils.md#decompress_zstd
+        /// </summary>
+        /// <param name="paramsOfDecompressZstd">The parameters of decompress ZSTD.</param>
+        /// <returns></returns>
+        public async Task<ResultOfDecompressZstd> DecompressZtd(ParamsOfDecompressZstd paramsOfDecompressZstd)
+        {
+            return await this.Request<ResultOfDecompressZstd>("utils.decompress_zstd", paramsOfDecompressZstd);
+        }
+
         #endregion
     }
 }

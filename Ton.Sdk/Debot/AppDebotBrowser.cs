@@ -183,6 +183,16 @@
             await this.Request<string>("app_debot_browser.send", paramsOfAppDebotBrowserSend);
         }
 
+        /// <summary>
+        /// Approves the specified parameters of application debot browser approve.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_debot.md#approve
+        /// </summary>
+        /// <param name="paramsOfAppDebotBrowserApprove">The parameters of application debot browser approve.</param>
+        public async Task<ResultOfAppDebotBrowserApprove> Approve(ParamsOfAppDebotBrowserApprove paramsOfAppDebotBrowserApprove)
+        {
+            return await this.Request<ResultOfAppDebotBrowserApprove>("app_debot_browser.approve", paramsOfAppDebotBrowserApprove);
+        }
+
         #endregion
     }
 }
