@@ -8,10 +8,10 @@
     <PackageId>Net.Ton.Sdk</PackageId>
     <Authors>Stanislav Popov</Authors>
     <Product>Net.Ton.Sdk</Product>
-    <Description>TON SDK Client library .NET bindings (version 1.0.0)</Description>
+    <Description>TON SDK Client library .NET bindings (version 1.14.1)</Description>
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/staszx/Ton.Sdk</RepositoryUrl>
-    <Version>1.0.2</Version>
+    <Version>1.14.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

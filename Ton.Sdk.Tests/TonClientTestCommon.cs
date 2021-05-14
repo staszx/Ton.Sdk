@@ -37,7 +37,7 @@
         /// <summary>
         ///     The library version
         /// </summary>
-        public const string LibVersion = "1.12.0";
+        public const string LibVersion = "1.14.1";
 
         /// <summary>
         /// The account
