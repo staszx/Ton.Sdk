@@ -114,6 +114,18 @@
         {
              await this.Request<object>("net.set_endpoints", endpointsSet);
         }
+
+        /// <summary>
+        /// Queries the counterparties.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#query_counterparties
+        /// </summary>
+        /// <param name="paramsOfQueryCounterparties">The parameters of query counterparties.</param>
+        /// <returns></returns>
+        public async Task<ResultOfQueryCollection> QueryCounterparties(ParamsOfQueryCounterparties paramsOfQueryCounterparties)
+        {
+            return await this.Request<ResultOfQueryCollection>("net.query_counterparties", paramsOfQueryCounterparties);
+        }
+
         #endregion
     }
 }

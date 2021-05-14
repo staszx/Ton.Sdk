@@ -91,6 +91,15 @@ namespace Ton.Sdk.Client
         [JsonProperty("reconnect_timeout")]
         public int ReconnectTimeout { get; set; }
 
+        /// <summary>
+        /// Gets or sets the sending endpoint count.
+        /// </summary>
+        /// <value>
+        /// The sending endpoint count.
+        /// </value>
+        [JsonProperty("sending_endpoint_count")]
+        public int SendingEndpointCount { get; set; }
+
         #endregion
     }
 }
