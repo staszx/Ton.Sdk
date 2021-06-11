@@ -100,6 +100,25 @@ namespace Ton.Sdk.Client
         [JsonProperty("sending_endpoint_count")]
         public int SendingEndpointCount { get; set; }
 
+        /// <summary>
+        /// Gets or sets the latency detection interval.
+        /// </summary>
+        /// <value>
+        /// The latency detection interval.
+        /// </value>
+        [JsonProperty("latency_detection_interval")]
+        public int LatencyDetectionInterval { get; set; }
+
+        /// <summary>
+        /// Gets or sets the maximum latency.
+        /// </summary>
+        /// <value>
+        /// The maximum latency.
+        /// </value>
+
+        [JsonProperty("max_latency")]
+        public int MaxLatency { get; set; }
+
         #endregion
     }
 }

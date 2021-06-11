@@ -126,6 +126,18 @@
             return await this.Request<ResultOfQueryCollection>("net.query_counterparties", paramsOfQueryCounterparties);
         }
 
+        /// <summary>
+        /// Queries the transaction tree.
+        /// </summary>
+        /// <param name="paramsOfQueryTransactionTree">The parameters of query transaction tree.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#query_transaction_tree
+        /// <returns></returns>
+        public async Task<ResultOfQueryTransactionTree> QueryTransactionTree(ParamsOfQueryTransactionTree paramsOfQueryTransactionTree)
+        {
+            return await this.Request<ResultOfQueryTransactionTree>("net.query_transaction_tree", paramsOfQueryTransactionTree);
+        }
+
+
         #endregion
     }
 }
