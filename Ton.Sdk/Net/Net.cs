@@ -137,6 +137,71 @@
             return await this.Request<ResultOfQueryTransactionTree>("net.query_transaction_tree", paramsOfQueryTransactionTree);
         }
 
+        /// <summary>
+        /// Creates the block iterator.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#create_block_iterator
+        /// </summary>
+        /// <param name="paramsOfCreateBlockIterator">The parameters of create block iterator.</param>
+        /// <returns></returns>
+        public async Task<RegisteredIterator> CreateBlockIterator(ParamsOfCreateBlockIterator paramsOfCreateBlockIterator)
+        {
+            return await this.Request<RegisteredIterator>("net.create_block_iterator", paramsOfCreateBlockIterator);
+        }
+
+        /// <summary>
+        /// Resumes the block iterator.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#resume_block_iterator
+        /// </summary>
+        /// <param name="paramsOfResumeBlockIterator">The parameters of resume block iterator.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#create_transaction_iterator
+        /// <returns></returns>
+        public async Task<RegisteredIterator> ResumeBlockIterator(ParamsOfResumeBlockIterator paramsOfResumeBlockIterator)
+        {
+            return await this.Request<RegisteredIterator>("net.resume_block_iterator", paramsOfResumeBlockIterator);
+        }
+
+        /// <summary>
+        /// Creates the transaction iterator.
+        /// </summary>
+        /// <param name="paramsOfCreateTransactionIterator">The parameters of create transaction iterator.</param>
+        /// <returns></returns>
+        public async Task<RegisteredIterator> CreateTransactionIterator(ParamsOfCreateTransactionIterator paramsOfCreateTransactionIterator)
+        {
+            return await this.Request<RegisteredIterator>("net.create_transaction_iterator", paramsOfCreateTransactionIterator);
+        }
+
+        /// <summary>
+        /// Resumes the transaction iterator.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#resume_transaction_iterator
+        /// </summary>
+        /// <param name="paramsOfResumeTransactionIterator">The parameters of resume transaction iterator.</param>
+        /// <returns></returns>
+        public async Task<RegisteredIterator> ResumeTransactionIterator(ParamsOfResumeTransactionIterator paramsOfResumeTransactionIterator)
+        {
+            return await this.Request<RegisteredIterator>("net.resume_transaction_iterator", paramsOfResumeTransactionIterator);
+        }
+
+        /// <summary>
+        /// Iterators the next.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#iterator_next
+        /// </summary>
+        /// <param name="paramsOfIteratorNext">The parameters of iterator next.</param>
+        /// <returns></returns>
+        public async Task<ResultOfIteratorNext> IteratorNext(ParamsOfIteratorNext paramsOfIteratorNext)
+        {
+            return await this.Request<ResultOfIteratorNext>("net.iterator_next", paramsOfIteratorNext);
+        }
+
+        /// <summary>
+        /// Removes the iterator.
+        /// </summary>
+        /// <param name="registeredIterator">The registered iterator.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_net.md#remove_iterator
+        /// <returns></returns>
+        public async Task<ResultOfIteratorNext> RemoveIterator(RegisteredIterator registeredIterator)
+        {
+            return await this.Request<ResultOfIteratorNext>("net.remove_iterator", registeredIterator);
+        }
 
         #endregion
     }

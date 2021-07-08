@@ -429,6 +429,59 @@
         {
              await this.Request<object>("crypto.remove_signing_box", registeredSigningBox);
         }
+
+        /// <summary>
+        /// Registers the encryption box.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#register_encryption_box
+        /// </summary>
+        /// <returns></returns>
+        public async Task<RegisteredEncryptionBox> RegisterEncryptionBox()
+        {
+            return await this.Request<RegisteredEncryptionBox>("crypto.register_encryption_box");
+        }
+
+        /// <summary>
+        /// Removes the encryption box.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#remove_encryption_box
+        /// </summary>
+        public async Task RemoveEncryptionBox(RegisteredEncryptionBox registeredEncryptionBox)
+        { 
+            await this.Request<object>("crypto.remove_encryption_box", registeredEncryptionBox);
+        }
+
+        /// <summary>
+        /// Encryptions the box get information.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#encryption_box_get_info
+        /// </summary>
+        /// <param name="paramsOfEncryptionBoxGetInfo">The parameters of encryption box get information.</param>
+        /// <returns></returns>
+        public async Task<ResultOfEncryptionBoxGetInfo> EncryptionBoxGetInfo(ParamsOfEncryptionBoxGetInfo paramsOfEncryptionBoxGetInfo)
+        {
+            return await this.Request<ResultOfEncryptionBoxGetInfo>("crypto.encryption_box_get_info", paramsOfEncryptionBoxGetInfo);
+        }
+
+        /// <summary>
+        /// Encryptions the box encrypt.
+        /// </summary>
+        /// <param name="paramsOfEncryptionBoxEncrypt">The parameters of encryption box encrypt.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#encryption_box_encrypt
+        /// <returns></returns>
+        public async Task<ResultOfEncryptionBoxEncrypt> EncryptionBoxEncrypt(ParamsOfEncryptionBoxEncrypt paramsOfEncryptionBoxEncrypt)
+        {
+            return await this.Request<ResultOfEncryptionBoxEncrypt>("crypto.encryption_box_encrypt", paramsOfEncryptionBoxEncrypt);
+        }
+
+        /// <summary>
+        /// Encryptions the box decrypt.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#encryption_box_decrypt
+        /// </summary>
+        /// <param name="paramsOfEncryptionBoxDecrypt">The parameters of encryption box decrypt.</param>
+        /// <returns></returns>
+        public async Task<ResultOfEncryptionBoxEncrypt> EncryptionBoxDecrypt(ParamsOfEncryptionBoxDecrypt paramsOfEncryptionBoxDecrypt)
+        {
+            return await this.Request<ResultOfEncryptionBoxEncrypt>("crypto.encryption_box_decrypt", paramsOfEncryptionBoxDecrypt);
+        }
+
         #endregion
     }
 }

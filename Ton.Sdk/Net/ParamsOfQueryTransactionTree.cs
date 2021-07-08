@@ -13,6 +13,9 @@ namespace Ton.Sdk.Net
         [JsonProperty("abi_registry")]
         public ContractAbi[] AbiRegistry { get; set; }
 
+        [JsonProperty("timeout")]
+        public uint? Timeout { get; set; }
+
         #endregion
     }
 }
