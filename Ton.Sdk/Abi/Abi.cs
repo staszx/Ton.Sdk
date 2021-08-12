@@ -112,6 +112,17 @@
             return await this.Request<ResultOfEncodeInternalMessage>("abi.encode_internal_message", paramsOfEncodeInternalMessage);
         }
 
+        /// <summary>
+        /// Decodes the account data.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_abi.md#decode_account_data
+        /// </summary>
+        /// <param name="paramsOfDecodeAccountData">The parameters of decode account data.</param>
+        /// <returns></returns>
+        public async Task<ResultOfDecodeData> DecodeAccountData(ParamsOfDecodeAccountData paramsOfDecodeAccountData)
+        {
+            return await this.Request<ResultOfDecodeData>("abi.decode_account_data", paramsOfDecodeAccountData);
+        }
+
         #endregion
     }
 }

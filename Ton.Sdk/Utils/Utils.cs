@@ -67,6 +67,17 @@
             return await this.Request<ResultOfDecompressZstd>("utils.decompress_zstd", paramsOfDecompressZstd);
         }
 
+        /// <summary>
+        /// Gets the type of the address.
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_utils.md#get_address_type
+        /// </summary>
+        /// <param name="paramsOfGetAddressType">Type of the parameters of get address.</param>
+        /// <returns></returns>
+        public async Task<ResultOfGetAddressType> GetAddressType(ParamsOfGetAddressType paramsOfGetAddressType)
+        {
+            return await this.Request<ResultOfGetAddressType>("utils.get_address_type", paramsOfGetAddressType);
+        }
+
         #endregion
     }
 }
