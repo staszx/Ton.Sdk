@@ -482,6 +482,17 @@
             return await this.Request<ResultOfEncryptionBoxEncrypt>("crypto.encryption_box_decrypt", paramsOfEncryptionBoxDecrypt);
         }
 
+        /// <summary>
+        /// Creates the encryption box.
+        /// </summary>
+        /// <param name="paramsOfCreateEncryptionBox">The parameters of create encryption box.</param>
+        /// https://github.com/tonlabs/TON-SDK/blob/master/docs/mod_crypto.md#create_encryption_box
+        /// <returns></returns>
+        public async Task<RegisteredEncryptionBox> CreateEncryptionBox(ParamsOfCreateEncryptionBox paramsOfCreateEncryptionBox)
+        {
+            return await this.Request<RegisteredEncryptionBox>("crypto.create_encryption_box", paramsOfCreateEncryptionBox);
+        }
+
         #endregion
     }
 }
